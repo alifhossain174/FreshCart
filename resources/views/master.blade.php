@@ -8,23 +8,24 @@
     <meta name="description" content="Fastkart" />
     <meta name="keywords" content="Fastkart" />
     <meta name="author" content="Fastkart" />
-    <link rel="icon" href="{{url('assets')}}/images/favicon/favicon.svg" type="image/x-icon" />
+    <link rel="icon" href="{{ url('assets') }}/images/favicon/favicon.svg" type="image/x-icon" />
     <title>FreshKart</title>
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/vendors/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/animate.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/vendors/font-awesome.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/vendors/feather-icon.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/vendors/ion.rangeSlider.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/vendors/slick/slick.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/vendors/slick/slick-theme.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/font-style.css" />
-    <link rel="stylesheet" type="text/css" href="{{url('assets')}}/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/feather-icon.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/ion.rangeSlider.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/slick/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/font-style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
 </head>
 
 <body class="theme-color-3 dark">
@@ -53,7 +54,7 @@
                                     <i class="iconly-Category icli"></i>
                                 </span>
                             </button>
-                            <a href="index.html" class="web-logo nav-logo">
+                            <a href="{{url('/')}}" class="web-logo nav-logo">
                                 <img src="../assets/images/logo/white-logo.svg" class="img-fluid blur-up lazyload"
                                     alt="" />
                             </a>
@@ -73,6 +74,18 @@
 
                             <div class="middle-box">
                                 <div class="center-box">
+                                    <!-- <div class="location-box-2">
+                        <button
+                          class="btn location-button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#locationModal"
+                        >
+                          <i class="iconly-Location icli"></i>
+                          <span>Location</span>
+                          <i class="fa-solid fa-angle-down down-arrow"></i>
+                        </button>
+                      </div> -->
+
                                     <div class="searchbar-box-2 input-group d-xl-flex d-none">
                                         <button class="btn search-icon" type="button">
                                             <i class="iconly-Search icli"></i>
@@ -85,6 +98,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="rightside-menu support-sidemenu">
                                 <div class="support-box">
                                     <div class="support-image">
@@ -136,7 +150,29 @@
                                             <a class="nav-link dropdown-toggle arrow-none" href="about-us.html">About
                                                 us</a>
                                         </li>
+
                                         <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                data-bs-toggle="dropdown">Seller</a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="seller-grid-2.html">Seller List</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="seller-detail.html">Seller
+                                                        Details</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="seller-become.html">Become a
+                                                        Seller</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="seller-dashboard.html">Seller
+                                                        Dashboard</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item dropdown" style="margin-left: 32px;">
                                             <a class="nav-link dropdown-toggle" href="javascript:void(0)"
                                                 data-bs-toggle="dropdown">Authentication</a>
                                             <ul class="dropdown-menu">
@@ -154,6 +190,7 @@
                                                 </li>
                                             </ul>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -277,7 +314,7 @@
     <div class="mobile-menu d-md-none d-block mobile-cart">
         <ul>
             <li class="active">
-                <a href="index.html">
+                <a href="{{url('/')}}">
                     <i class="iconly-Home icli"></i>
                     <span>Home</span>
                 </a>
@@ -322,7 +359,7 @@
             <div class="main-footer">
                 <div class="row g-md-4 gy-sm-5">
                     <div class="col-xxl-3 col-xl-4 col-sm-6">
-                        <a href="index.html" class="foot-logo theme-logo">
+                        <a href="{{ url('/') }}" class="foot-logo theme-logo">
                             <img src="../assets/images/logo/white-logo.svg" class="img-fluid blur-up lazyload"
                                 alt="" />
                         </a>
@@ -483,8 +520,7 @@
 
                 <ul class="payment-box">
                     <li>
-                        <img src="../assets/images/icon/paymant/visa.png" class="blur-up lazyload"
-                            alt="" />
+                        <img src="../assets/images/icon/paymant/visa.png" class="blur-up lazyload" alt="" />
                     </li>
                     <li>
                         <img src="../assets/images/icon/paymant/discover.png" alt=""
@@ -509,8 +545,8 @@
     <!-- Footer End -->
 
     <!-- Quick View Modal Box Start -->
-    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header p-0">
@@ -522,8 +558,8 @@
                     <div class="row g-sm-4 g-2">
                         <div class="col-lg-6">
                             <div class="slider-image">
-                                <img src="../assets/images/product/category/1.jpg"
-                                    class="img-fluid blur-up lazyload" alt="" />
+                                <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
+                                    alt="" />
                             </div>
                         </div>
 
@@ -741,30 +777,30 @@
     <!-- Bg overlay End -->
 
     <!-- latest jquery-->
-    <script src="{{url('assets')}}/js/jquery-3.6.0.min.js"></script>
-    <script src="{{url('assets')}}/js/jquery-ui.min.js"></script>
-    <script src="{{url('assets')}}/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="{{url('assets')}}/js/bootstrap/bootstrap-notify.min.js"></script>
-    <script src="{{url('assets')}}/js/bootstrap/popper.min.js"></script>
-    <script src="{{url('assets')}}/js/feather/feather.min.js"></script>
-    <script src="{{url('assets')}}/js/feather/feather-icon.js"></script>
-    <script src="{{url('assets')}}/js/lazysizes.min.js"></script>
-    <script src="{{url('assets')}}/js/slick/slick.js"></script>
-    <script src="{{url('assets')}}/js/slick/slick-animation.min.js"></script>
-    <script src="{{url('assets')}}/js/custom-slick-animated.js"></script>
-    <script src="{{url('assets')}}/js/slick/custom_slick.js"></script>
-    <script src="{{url('assets')}}/js/ion.rangeSlider.min.js"></script>
-    <script src="{{url('assets')}}/js/auto-height.js"></script>
-    <script src="{{url('assets')}}/js/lazysizes.min.js"></script>
-    <script src="{{url('assets')}}/js/quantity-2.js"></script>
-    <script src="{{url('assets')}}/js/fly-cart.js"></script>
-    <script src="{{url('assets')}}/js/timer1.js"></script>
-    <script src="{{url('assets')}}/js/timer2.js"></script>
-    <script src="{{url('assets')}}/js/clipboard.min.js"></script>
-    <script src="{{url('assets')}}/js/copy-clipboard.js"></script>
-    <script src="{{url('assets')}}/js/wow.min.js"></script>
-    <script src="{{url('assets')}}/js/custom-wow.js"></script>
-    <script src="{{url('assets')}}/js/script.js"></script>
+    <script src="{{ url('assets') }}/js/jquery-3.6.0.min.js"></script>
+    <script src="{{ url('assets') }}/js/jquery-ui.min.js"></script>
+    <script src="{{ url('assets') }}/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="{{ url('assets') }}/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="{{ url('assets') }}/js/bootstrap/popper.min.js"></script>
+    <script src="{{ url('assets') }}/js/feather/feather.min.js"></script>
+    <script src="{{ url('assets') }}/js/feather/feather-icon.js"></script>
+    <script src="{{ url('assets') }}/js/lazysizes.min.js"></script>
+    <script src="{{ url('assets') }}/js/slick/slick.js"></script>
+    <script src="{{ url('assets') }}/js/slick/slick-animation.min.js"></script>
+    <script src="{{ url('assets') }}/js/custom-slick-animated.js"></script>
+    <script src="{{ url('assets') }}/js/slick/custom_slick.js"></script>
+    <script src="{{ url('assets') }}/js/ion.rangeSlider.min.js"></script>
+    <script src="{{ url('assets') }}/js/auto-height.js"></script>
+    <script src="{{ url('assets') }}/js/lazysizes.min.js"></script>
+    <script src="{{ url('assets') }}/js/quantity-2.js"></script>
+    <script src="{{ url('assets') }}/js/fly-cart.js"></script>
+    <script src="{{ url('assets') }}/js/timer1.js"></script>
+    <script src="{{ url('assets') }}/js/timer2.js"></script>
+    <script src="{{ url('assets') }}/js/clipboard.min.js"></script>
+    <script src="{{ url('assets') }}/js/copy-clipboard.js"></script>
+    <script src="{{ url('assets') }}/js/wow.min.js"></script>
+    <script src="{{ url('assets') }}/js/custom-wow.js"></script>
+    <script src="{{ url('assets') }}/js/script.js"></script>
 </body>
 
 </html>
