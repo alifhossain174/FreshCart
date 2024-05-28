@@ -4,7 +4,11 @@
     @include('homepageSections.sliders')
     @include('homepageSections.top_banners')
     @include('homepageSections.categories')
-    @include('homepageSections.featured_category')
+
+    @if(isset($featuredCategories[0]))
+        @include('homepageSections.top_featured_category')
+    @endif
+
     @include('homepageSections.offers')
     @include('homepageSections.flagWithDeals')
 

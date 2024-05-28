@@ -8,12 +8,11 @@
                     <div class="home-contain rounded-0 p-0">
                         <img src="{{env('ADMIN_URL')."/".$slider->image}}" class="img-fluid bg-img blur-up lazyload" alt="" />
                         <div class="home-detail home-big-space p-center-left home-overlay position-relative">
-                            <div class="container-fluid-lg">
+                            <div class="container-fluid-lg w-100">
                                 <h6 class="ls-expanded theme-color text-uppercase">{{$slider->sub_title}}</h6>
                                 <h1 class="heding-2">{{$slider->title}}</h1>
-                                {{-- <h2 class="content-2">{{$slider->description}}</h2> --}}
                                 <h5 class="text-content">{{$slider->description}}</h5>
-                                <button class="btn theme-bg-color btn-md text-white fw-bold mt-md-4 mt-2 mend-auto"
+                                <button class="btn theme-bg-color btn-md text-white fw-bold mt-md-4 mt-2 "
                                     onclick="location.href='{{$slider->btn_link}}'">
                                     {{$slider->btn_text}} <i class="fa-solid fa-arrow-right icon"></i>
                                 </button>

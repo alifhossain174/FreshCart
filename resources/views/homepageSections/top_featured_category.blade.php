@@ -2,7 +2,7 @@
 <section class="product-section">
     <div class="container-fluid-lg">
         <div class="title">
-            <h2>Featured Category</h2>
+            <h2>{{$featuredCategories[0]->name}}</h2>
         </div>
 
         <div class="row">
