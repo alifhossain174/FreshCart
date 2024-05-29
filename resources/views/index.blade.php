@@ -9,13 +9,16 @@
         @include('homepageSections.top_featured_category')
     @endif
 
-    @include('homepageSections.offers')
+    @if(count($promoOffers) > 0)
+        @include('homepageSections.offers')
+    @endif
+
     @include('homepageSections.flagWithDeals')
 
     {{-- loop hobe --}}
+    {{-- @include('homepageSections.featured_category')
     @include('homepageSections.featured_category')
-    @include('homepageSections.featured_category')
-    @include('homepageSections.middle_banners')
+    @include('homepageSections.middle_banners') --}}
     {{-- loop hobe --}}
 
     @include('homepageSections.blogs')
