@@ -15,4 +15,9 @@ class FrontendController extends Controller
         $promoOffers = DB::table('promo_codes')->where('status', 1)->where('effective_date', '<=', date("Y-m-d"))->where('expire_date', '>=', date("Y-m-d"))->get();
         return view('index', compact('sliders', 'topBanners', 'categories', 'featuredCategories', 'promoOffers'));
     }
+
+    public function searchForProducts(Request $request){
+        $searchKeyword = $request->search_keyword;
+        return redirect('shop?search_keyword='.$searchKeyword);
+    }
 }

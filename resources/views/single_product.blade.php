@@ -72,42 +72,31 @@
 
         <h5 class="price theme-color">
             @if($variants && count($variants) > 0)
-
                 @if($variantMinDiscountPrice > 0)
-                ৳{{number_format($variantMinDiscountPrice)}}
-                <del>৳{{number_format($variantMinPrice)}}</del>
+                    ৳{{number_format($variantMinDiscountPrice)}}
+                    <del>৳{{number_format($variantMinPrice)}}</del>
                 @else
-                ৳{{number_format($variantMinPrice)}}
+                    ৳{{number_format($variantMinPrice)}}
                 @endif
-
             @else
-
                 @if($product->discount_price > 0)
-                ৳{{number_format($product->discount_price)}}
-                <del>৳{{number_format($product->price)}}</del>
+                    ৳{{number_format($product->discount_price)}}
+                    <del>৳{{number_format($product->price)}}</del>
                 @else
-                ৳{{number_format($product->price)}}
+                    ৳{{number_format($product->price)}}
                 @endif
-
             @endif
         </h5>
 
         <div class="addtocart_btn">
-            <button class="add-button addcart-button btn buy-button text-light">
+            <button class="add-button addcart-button btn buy-button text-light" data-id="{{ $product->id }}">
                 <i class="fa-solid fa-plus"></i>
             </button>
             <div class="qty-box cart_qty">
                 <div class="input-group">
-                    <button type="button" class="btn qty-left-minus" data-type="minus"
-                        data-field="">
-                        <i class="fa fa-minus" aria-hidden="true"></i>
-                    </button>
-                    <input class="form-control input-number qty-input" type="text"
-                        name="quantity" value="1" />
-                    <button type="button" class="btn qty-right-plus" data-type="plus"
-                        data-field="">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </button>
+                    <button type="button" class="btn qty-left-minus" data-type="minus" data-id="{{ $product->id }}" data-field=""><i class="fa fa-minus" aria-hidden="true"></i></button>
+                    <input class="form-control input-number qty-input" id="cart_qty_{{$product->id}}" type="text" name="quantity" value="{{ isset(session()->get('cart')[$product->id]) ? session()->get('cart')[$product->id]['quantity'] : 1 }}" />
+                    <button type="button" class="btn qty-right-plus" data-type="plus" data-id="{{ $product->id }}" data-field=""><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>

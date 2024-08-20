@@ -11,9 +11,9 @@
                     </a>
                     <div class="banner-detail p-center-left w-75 banner-p-sm mend-auto">
                         <div>
-                            <h5 class="fw-light mb-2">{{$topBanner->sub_title}}</h5>
-                            <h4 class="fw-bold mb-0">{{$topBanner->title}}</h4>
-                            <button onclick="location.href = '{{$topBanner->btn_link}}';" class="btn shop-now-button mt-3 ps-0 mend-auto theme-color fw-bold">
+                            <h5 class="fw-light mb-2" @if($topBanner->sub_title_color) style="color: {{$topBanner->sub_title_color}}" @endif>{{$topBanner->sub_title}}</h5>
+                            <h4 class="fw-bold mb-0" @if($topBanner->title_color) style="color: {{$topBanner->title_color}}" @endif>{{$topBanner->title}}</h4>
+                            <button onclick="location.href = '{{$topBanner->btn_link}}';" class="btn shop-now-button mt-3 ps-0 mend-auto theme-color fw-bold" @if($topBanner->btn_color) style="color: {{$topBanner->btn_color}} !important" @endif>
                                 {{$topBanner->btn_text}} <i class="fa-solid fa-chevron-right"></i>
                             </button>
                         </div>

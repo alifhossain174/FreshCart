@@ -19,11 +19,10 @@
                                 <a href="{{url('shop')}}">
                                     <img src="{{env('ADMIN_URL')."/".$category->icon}}" class="img-fluid blur-up lazyload" alt="" />
                                 </a>
-                                <button onclick="location.href = '{{url('shop')}}';"
-                                    class="btn shop-button">
+                                <a href="{{ url('shop') }}?category={{$category->slug}}" class="btn shop-button">
                                     <span>Shop Now</span>
                                     <i class="fas fa-angle-right"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

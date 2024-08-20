@@ -2,11 +2,11 @@
 <section class="product-section">
     <div class="container-fluid-lg">
         <div class="title">
-            <h2>{{$featuredCategories[0]->name}}</h2>
+            <h2>{{$featuredCategory->name}}</h2>
         </div>
 
         @php
-            $products = DB::table('products')->where('category_id', $featuredCategories[0]->id)->inRandomOrder()->skip(0)->limit(20)->get();
+            $products = DB::table('products')->where('category_id', $featuredCategory->id)->inRandomOrder()->skip(0)->limit(20)->get();
         @endphp
 
         <div class="row">

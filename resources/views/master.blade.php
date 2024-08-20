@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@php
+    $generalInfo = DB::table('general_infos')
+        ->select('logo_dark', 'logo', 'fav_icon', 'company_name', 'email', 'address', 'custom_css', 'header_script', 'footer_script', 'payment_banner', 'play_store_link', 'contact', 'footer_copyright_text', 'app_store_link', 'whatsapp', 'messenger', 'telegram', 'youtube', 'facebook', 'twitter', 'linkedin', 'instagram', 'primary_color', 'secondary_color', 'tertiary_color', 'title_color', 'paragraph_color', 'border_color', 'google_tag_manager_status', 'google_tag_manager_id', 'google_analytic_status', 'google_analytic_tracking_id', 'fb_pixel_status', 'fb_pixel_app_id', 'tawk_chat_status', 'tawk_chat_link', 'messenger_chat_status', 'fb_page_id', 'short_description')
+        ->where('id', 1)
+        ->first();
+@endphp
+
 <head>
+
+    <!-- Start Meta Data -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Fastkart" />
-    <meta name="keywords" content="Fastkart" />
-    <meta name="author" content="Fastkart" />
-    <link rel="icon" href="{{ url('assets') }}/images/favicon/favicon.svg" type="image/x-icon" />
-    <title>FreshKart</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- End Meta Data -->
+
+    @stack('site-seo')
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/bootstrap.css" />
@@ -25,10 +32,118 @@
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/slick/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/font-style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
+
+    @yield('header_css')
+
+    <style>
+        .theme-color-3 {
+            --theme-color: {{ $generalInfo->primary_color }};
+        }
+    </style>
+
+    @if ($generalInfo->google_tag_manager_status)
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', '{{ $generalInfo->google_tag_manager_id }}');
+        </script>
+        <!-- End Google Tag Manager-->
+    @endif
+
+    @if ($generalInfo->google_analytic_status)
+        <!-- Google tag (gtag.js) google analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $generalInfo->google_analytic_tracking_id }}" type="53191a76ba85f8f784cbe351-text/javascript"></script>
+        <script type="53191a76ba85f8f784cbe351-text/javascript">
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{$generalInfo->google_analytic_tracking_id}}');
+        </script>
+    @endif
+
+    @if ($generalInfo->fb_pixel_status)
+        <!-- Facebook Pixel Code -->
+        <script>
+            ! function(f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function() {
+                    n.callMethod ?
+                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ $generalInfo->fb_pixel_app_id }}');
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                src="https://www.facebook.com/tr?id={{ $generalInfo->fb_pixel_app_id }}&ev=PageView&noscript=1" />
+        </noscript>
+        <!-- End Facebook Pixel Code -->
+    @endif
+
+    @if ($generalInfo->tawk_chat_status)
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {},
+                Tawk_LoadStart = new Date();
+            (function() {
+                var s1 = document.createElement("script"),
+                    s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = '{{ $generalInfo->tawk_chat_link }}';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
+    @endif
+
+    {!! $generalInfo->header_script !!}
 </head>
 
 <body class="theme-color-3 dark">
+
+    @if ($generalInfo->google_tag_manager_status)
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $generalInfo->google_tag_manager_id }}"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    @endif
+
+    @if ($generalInfo->messenger_chat_status)
+        <a href="{{$generalInfo->fb_page_id}}" target="_blank" style="position: fixed; right: 12px; width: 60px; bottom: 65px; z-index: 99999;">
+            <img src="{{url('assets')}}/images/messenger_icon.png" style="width: 60px">
+        </a>
+    @endif
 
     <!-- Loader Start -->
     <div class="fullpage-loader">
@@ -55,8 +170,7 @@
                                 </span>
                             </button>
                             <a href="{{url('/')}}" class="web-logo nav-logo">
-                                <img src="../assets/images/logo/white-logo.svg" class="img-fluid blur-up lazyload"
-                                    alt="" />
+                                <img src="{{ url(env('ADMIN_URL') . '/' . $generalInfo->logo) }}" alt="{{$generalInfo->company_name}}" class="img-fluid blur-up lazyload" alt="" />
                             </a>
 
                             <div class="search-full">
@@ -64,8 +178,7 @@
                                     <span class="input-group-text">
                                         <i data-feather="search" class="font-light"></i>
                                     </span>
-                                    <input type="text" class="form-control search-type"
-                                        placeholder="Search here.." />
+                                    <input type="text" class="form-control search-type" placeholder="Search here.." />
                                     <span class="input-group-text close-search">
                                         <i data-feather="x" class="font-light"></i>
                                     </span>
@@ -74,39 +187,26 @@
 
                             <div class="middle-box">
                                 <div class="center-box">
-                                    <!-- <div class="location-box-2">
-                        <button
-                          class="btn location-button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#locationModal"
-                        >
-                          <i class="iconly-Location icli"></i>
-                          <span>Location</span>
-                          <i class="fa-solid fa-angle-down down-arrow"></i>
-                        </button>
-                      </div> -->
-
-                                    <div class="searchbar-box-2 input-group d-xl-flex d-none">
-                                        <button class="btn search-icon" type="button">
-                                            <i class="iconly-Search icli"></i>
-                                        </button>
-                                        <input type="text" class="form-control"
-                                            placeholder="Search for products, styles,brands..." />
-                                        <button class="btn search-button" type="button">
-                                            Search
-                                        </button>
-                                    </div>
+                                    <form action="{{url('search/for/products')}}" method="GET">
+                                        @csrf
+                                        <div class="searchbar-box-2 input-group d-xl-flex d-none" style="position: relative">
+                                            <button class="btn search-icon" type="button">
+                                                <i class="iconly-Search icli"></i>
+                                            </button>
+                                            <input type="text" autocomplete="off" @if(isset($search_keyword)) value="{{$search_keyword}}" @endif name="search_keyword" id="search_keyword" class="form-control" placeholder="Search for products..." required/>
+                                            <button class="btn search-button" type="button">Search</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
                             <div class="rightside-menu support-sidemenu">
                                 <div class="support-box">
                                     <div class="support-image">
-                                        <img src="../assets/images/icon/support.png" class="img-fluid blur-up lazyload"
-                                            alt="" />
+                                        <img src="{{url('assets')}}/images/icon/support.png" class="img-fluid blur-up lazyload" alt="" />
                                     </div>
                                     <div class="support-number">
-                                        <h2>(123) 456 7890</h2>
+                                        <h2>{{$generalInfo->contact}}</h2>
                                         <h4>24/7 Support Center</h4>
                                     </div>
                                 </div>
@@ -125,72 +225,28 @@
                             <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
                                 <div class="offcanvas-header navbar-shadow">
                                     <h5>Menu</h5>
-                                    <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas"
-                                        aria-label="Close"></button>
+                                    <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav">
                                         <li class="nav-item">
-                                            <a class="nav-link dropdown-toggle ps-0 arrow-none"
-                                                href="javascript:void(0)" data-bs-toggle="dropdown">Home</a>
+                                            <a class="nav-link dropdown-toggle ps-0 arrow-none" href="{{url('/')}}" data-bs-toggle="dropdown">Home</a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle arrow-none"
-                                                href="shop-left-sidebar.html">Shop</a>
-                                        </li>
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle arrow-none"
-                                                href="product-left-thumbnail.html">Product</a>
-                                        </li>
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle arrow-none"
-                                                href="blog-grid.html">Blog</a>
+                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/shop')}}">Shop</a>
                                         </li>
                                         <li class="nav-item dropdown new-nav-item">
-                                            <a class="nav-link dropdown-toggle arrow-none" href="about-us.html">About
-                                                us</a>
+                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/vendor/shops')}}">Vendors</a>
                                         </li>
-
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                data-bs-toggle="dropdown">Seller</a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-grid-2.html">Seller List</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-detail.html">Seller
-                                                        Details</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-become.html">Become a
-                                                        Seller</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-dashboard.html">Seller
-                                                        Dashboard</a>
-                                                </li>
-                                            </ul>
+                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/blogs')}}">Blogs</a>
                                         </li>
-                                        <li class="nav-item dropdown" style="margin-left: 32px;">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                data-bs-toggle="dropdown">Authentication</a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="login.html">Login</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="sign-up.html">Register</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="otp.html">Verify OTP</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="forgot.html">Forget Password</a>
-                                                </li>
-                                            </ul>
+                                        <li class="nav-item dropdown new-nav-item">
+                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/about')}}">About us</a>
                                         </li>
-
+                                        <li class="nav-item dropdown new-nav-item">
+                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/contact')}}">Contact</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -275,7 +331,7 @@
 
                                 <li>
                                     <a href="cart.html" class="header-icon bag-icon">
-                                        <small class="badge-number badge-light">2</small>
+                                        <small class="badge-number badge-light">{{ session('cart') ? count(session('cart')) : 0 }}</small>
                                         <i class="iconly-Bag-2 icli"></i>
                                     </a>
                                 </li>
@@ -856,6 +912,124 @@
             renderLazyImage();
         })
     </script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // add to cart
+        $(".addcart-button").click(function () {
+            var id = $(this).data('id');
+            $(this).next().addClass("open");
+            $("#cart_qty_"+id).val(1);
+
+            $.get("{{ url('add/to/cart') }}" + '/' + id, function(data) {
+                toastr.options.positionClass = 'toast-bottom-right';
+                toastr.options.timeOut = 1000;
+                toastr.success("Added to Cart");
+                $("a.bag-icon small.badge-number").html(data.cartTotalQty);
+            })
+        });
+
+        // cart qty increase
+        $('.qty-right-plus').click(function () {
+
+            var cartQty = Number(Number($(this).prev().val()) + 1);
+            $(this).prev().val(cartQty);
+            var id = $(this).data('id');
+
+            var formData = new FormData();
+            formData.append("cart_id", id);
+            formData.append("cart_qty", cartQty);
+            $.ajax({
+                data: formData,
+                url: "{{ url('update/cart/qty') }}",
+                type: "POST",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    toastr.options.positionClass = 'toast-bottom-right';
+                    toastr.options.timeOut = 1000;
+                    toastr.success("Cart quantity has increased");
+                    // $(".offCanvas__minicart").html(data.rendered_cart);
+                    // $(".checkout-order-review-inner").html(data.checkoutCartItems);
+                    // $(".order-review-summary").html(data.checkoutTotalAmount);
+                },
+                error: function(data) {
+                    console.log('Error:', data);
+                }
+            });
+
+        });
+
+
+        $('.qty-left-minus').on('click', function () {
+            var $qty = $(this).siblings(".qty-input");
+            var _val = parseInt($($qty).val());
+            if (_val == 1) {
+                var _removeCls = $(this).parents('.cart_qty');
+                $(_removeCls).removeClass("open");
+            }
+            var currentVal = parseInt($qty.val());
+            if (!isNaN(currentVal) && currentVal > 0) {
+                $qty.val(currentVal - 1);
+            }
+
+            var id = $(this).data('id');
+            if(parseInt($($qty).val()) == 0){
+                var id = $(this).data('id');
+                $.get("{{ url('remove/cart/item') }}" + '/' + id, function(data) {
+                    toastr.options.positionClass = 'toast-bottom-right';
+                    toastr.options.timeOut = 1000;
+                    toastr.error("Item removed from cart");
+                    $("a.bag-icon small.badge-number").html(data.cartTotalQty);
+                    // $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
+                    // $("#view_cart_items").html(data.viewCartItems);
+                    // $("#view_cart_calculation").html(data.viewCartCalculation);
+                    // $("span.cart-count").html(data.cartTotalQty);
+                    // $("#product_details_cart_qty").val(1);
+                    // $("table.cart-single-product-table tbody").html(data.checkoutCartItems);
+                    // $(".order-review-summary").html(data.checkoutTotalAmount);
+                })
+            } else {
+                var formData = new FormData();
+                formData.append("cart_id", id);
+                formData.append("cart_qty", parseInt($($qty).val()));
+                $.ajax({
+                    data: formData,
+                    url: "{{ url('update/cart/qty') }}",
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        toastr.options.positionClass = 'toast-bottom-right';
+                        toastr.options.timeOut = 1000;
+                        toastr.success("Cart quantity has decreased");
+                        // $(".offCanvas__minicart").html(data.rendered_cart);
+                        // $(".checkout-order-review-inner").html(data.checkoutCartItems);
+                        // $(".order-review-summary").html(data.checkoutTotalAmount);
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+
+        });
+
+    </script>
+
+    @yield('footer_js')
+
+    {!! $generalInfo->footer_script !!}
+
+    <script src="{{ url('assets') }}/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
 </body>
 
 </html>
