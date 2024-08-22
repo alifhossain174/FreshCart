@@ -38,13 +38,23 @@
         @include('homepageSections.offers')
     @endif
 
-    @include('homepageSections.flagWithDeals')
+    @if($flags && count($flags) > 0)
+        @include('homepageSections.flagWithDeals')
+    @endif
 
-    {{-- loop hobe --}}
-    {{-- @include('homepageSections.featured_category')
-    @include('homepageSections.featured_category')
-    @include('homepageSections.middle_banners') --}}
-    {{-- loop hobe --}}
+
+    @foreach($flags as $flagIndex => $flag)
+        @if($flagIndex > 0)
+            @if($flagIndex == 3)
+                @include('homepageSections.middle_banners')
+            @endif
+            @if($flagIndex == 5)
+                @include('homepageSections.middle_banners')
+            @endif
+            @include('homepageSections.featured_category')
+        @endif
+    @endforeach
+
 
     @include('homepageSections.blogs')
     @include('homepageSections.feature')

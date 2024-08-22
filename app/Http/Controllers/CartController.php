@@ -97,12 +97,7 @@ class CartController extends Controller
 
     public function addToCartWithQty(Request $request){
 
-        $product = DB::table('products')
-                    ->leftJoin('categories', 'products.category_id', 'categories.id') // joining for data layer info
-                    ->leftJoin('brands', 'products.brand_id', 'brands.id') // joining for data layer info
-                    ->select('products.*', 'categories.name as category_name', 'brands.name as brand_name')
-                    ->where('products.id', $request->product_id)
-                    ->first();
+        $product = DB::table('products')->where('products.id', $request->product_id)->first();
 
         $cart = session()->get('cart', []);
 
@@ -110,6 +105,7 @@ class CartController extends Controller
 
             $cart[$request->product_id]['quantity'] = (int) $request->qty;
             $cart[$request->product_id]['price'] = $request->price;
+            $cart[$request->product_id]['discount_price'] = $request->discount_price;
             $cart[$request->product_id]['color_id'] = $request->color_id != 'null' ? $request->color_id : null;
             $cart[$request->product_id]['size_id'] = $request->size_id != 'null' ? $request->size_id : null;
 
@@ -124,25 +120,15 @@ class CartController extends Controller
                 // variant
                 "color_id" => $request->color_id != 'null' ? $request->color_id : null,
                 "size_id" => $request->size_id != 'null' ? $request->size_id : null,
-                // for data layer
-                "brand_name" => $product->brand_name,
-                "category_name" => $product->category_name,
             ];
         }
 
         session()->put('cart', $cart);
 
-        $returnHTML = view('sidebar_cart')->render();
+        // $returnHTML = view('sidebar_cart')->render();
         return response()->json([
-            'rendered_cart' => $returnHTML,
-            'cartTotalQty' => count(session('cart')),
-
-            // for data layer
-            'p_name_data_layer' => $product->name,
-            'p_price_data_layer' => $request->discount_price > 0 ? $request->discount_price : $request->price,
-            'p_brand_name' => $product->brand_name,
-            'p_category_name' => $product->category_name,
-            'p_qauntity' => (int) $request->qty,
+            // 'rendered_cart' => $returnHTML,
+            'cartTotalQty' => count(session('cart'))
         ]);
     }
 

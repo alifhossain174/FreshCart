@@ -6,35 +6,6 @@
         </div>
         <div class="slider-bank-3 arrow-slider slick-height">
 
-            @php
-                function generateRandomHexColor() {
-                    $red = rand(0, 128);   // Range from min to mid
-                    $green = rand(0, 128); // Range from min to mid
-                    $blue = rand(0, 128);  // Range from min to mid
-                    $redHex = str_pad(dechex($red), 2, '0', STR_PAD_LEFT);
-                    $greenHex = str_pad(dechex($green), 2, '0', STR_PAD_LEFT);
-                    $blueHex = str_pad(dechex($blue), 2, '0', STR_PAD_LEFT);
-                    $hexColor = '#' . $redHex . $greenHex . $blueHex;
-                    return $hexColor;
-                }
-
-                function lightenHexColor($hex, $percent) {
-                    $hex = ltrim($hex, '#');
-                    $red = hexdec(substr($hex, 0, 2));
-                    $green = hexdec(substr($hex, 2, 2));
-                    $blue = hexdec(substr($hex, 4, 2));
-                    $red = min(255, $red + ($red * $percent / 100));
-                    $green = min(255, $green + ($green * $percent / 100));
-                    $blue = min(255, $blue + ($blue * $percent / 100));
-                    $redHex = str_pad(dechex($red), 2, '0', STR_PAD_LEFT);
-                    $greenHex = str_pad(dechex($green), 2, '0', STR_PAD_LEFT);
-                    $blueHex = str_pad(dechex($blue), 2, '0', STR_PAD_LEFT);
-                    $lightenedHex = '#' . $redHex . $greenHex . $blueHex;
-                    return $lightenedHex;
-                }
-            @endphp
-
-
             @forEach($promoOffers as $offer)
             <div>
                 <div class="bank-offer">
@@ -64,8 +35,8 @@
                     </div>
 
                     @php
-                        $randomColor = generateRandomHexColor();
-                        $randomColorLight = lightenHexColor($randomColor, 75);
+                        $randomColor = App\Http\Controllers\FrontendController::generateRandomHexColor();
+                        $randomColorLight = App\Http\Controllers\FrontendController::lightenHexColor($randomColor, 75);
                     @endphp
 
                     <div class="bank-footer bank-footer-1" style="background: linear-gradient(to right, {{$randomColor}}, {{$randomColorLight}}); ">

@@ -6,7 +6,7 @@
 
         <ul class="option">
             <li data-bs-toggle="tooltip" data-bs-placement="top" title="Quick View">
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
+                <a href="javascript:void(0)" onclick="showQuickView('{{$product->slug}}')" data-bs-toggle="modal" data-bs-target="#view">
                     <i class="iconly-Show icli"></i>
                 </a>
             </li>
@@ -15,11 +15,11 @@
                     <i class="iconly-Heart icli"></i>
                 </a>
             </li>
-            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
+            {{-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
                 <a href="compare.html">
                     <i class="iconly-Swap icli"></i>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 
@@ -53,7 +53,8 @@
         </a>
 
         @php
-            $variants = DB::table('product_variants')->select('discounted_price', 'price')->where('product_id', $product->id)->get();
+            $variants = DB::table('product_variants')->where('product_id', $product->id)->get();
+            $totalStockAllVariants = $product->stock;
             if($variants && count($variants) > 0){
                 $variantMinDiscountPrice = 0;
                 $variantMinPrice = 0;
@@ -61,8 +62,13 @@
                 $variantMinPriceArray = array();
 
                 foreach ($variants as $variant) {
-                    $variantMinDiscountPriceArray[] = $variant->discounted_price;
-                    $variantMinPriceArray[] = $variant->price;
+                    if($variant->discounted_price > 0){
+                        $variantMinDiscountPriceArray[] = $variant->discounted_price;
+                    }
+                    if($variant->price > 0){
+                        $variantMinPriceArray[] = $variant->price;
+                    }
+                    $totalStockAllVariants = $totalStockAllVariants + (int) $variant->stock;
                 }
 
                 $variantMinDiscountPrice = min($variantMinDiscountPriceArray);
@@ -92,7 +98,7 @@
             <button class="add-button addcart-button btn buy-button text-light" data-id="{{ $product->id }}">
                 <i class="fa-solid fa-plus"></i>
             </button>
-            <div class="qty-box cart_qty">
+            <div class="qty-box qty-box-{{ $product->id }} cart_qty @if(isset(session()->get('cart')[$product->id]) && session()->get('cart')[$product->id]['quantity'] >= 1) open @endif">
                 <div class="input-group">
                     <button type="button" class="btn qty-left-minus" data-type="minus" data-id="{{ $product->id }}" data-field=""><i class="fa fa-minus" aria-hidden="true"></i></button>
                     <input class="form-control input-number qty-input" id="cart_qty_{{$product->id}}" type="text" name="quantity" value="{{ isset(session()->get('cart')[$product->id]) ? session()->get('cart')[$product->id]['quantity'] : 1 }}" />

@@ -12,6 +12,8 @@ Auth::routes();
 
 Route::get('/', [FrontendController::class, 'index'])->name('Index');
 Route::get('/search/for/products', [FrontendController::class, 'searchForProducts'])->name('SearchForProducts');
+Route::post('/product/quick/view', [FrontendController::class, 'productQuickView'])->name('ProductQuickView');
+Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
 
 // blog routes
 Route::get('/blogs', [BlogController::class, 'blogs'])->name('Blogs');
