@@ -1,105 +1,32 @@
 <!-- Blog Section Start -->
-<section class="blog-section">
+<section class="blog-section section-b-space">
     <div class="container-fluid-lg">
         <div class="title title-4">
             <h2>Blog</h2>
         </div>
 
         <div class="slider-3-blog arrow-slider slick-height">
+
+            @foreach($blogs as $blog)
             <div>
                 <div class="blog-box ratio_45">
                     <div class="blog-box-image">
-                        <a href="blog-detail.html">
-                            <img src="../assets/images/grocery/blog/1.jpg" class="blur-up lazyload bg-img"
-                                alt="" />
+                        <a href="{{url('blog/details')}}/{{$blog->slug}}">
+                            <img src="{{url(env('ADMIN_URL')."/".$blog->image)}}" class="blur-up lazyload bg-img" alt="" />
                         </a>
                     </div>
 
                     <div class="blog-detail">
-                        <label>Conversion rate optimization</label>
-                        <a href="blog-detail.html">
-                            <h3>Best selling bag online market place...</h3>
+                        <label>{{$blog->title}}</label>
+                        <a href="{{url('blog/details')}}/{{$blog->slug}}">
+                            <h3>{{$blog->short_description}}</h3>
                         </a>
-                        <h5 class="text-content">Anil Viradiya - MARCH 9, 2022</h5>
+                        <h5 class="text-content">{{env('APP_NAME')}} - {{date("d M, Y", strtotime($blog->created_at))}}</h5>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div>
-                <div class="blog-box ratio_45">
-                    <div class="blog-box-image">
-                        <a href="blog-detail.html">
-                            <img src="../assets/images/grocery/blog/2.jpg" class="blur-up lazyload bg-img"
-                                alt="" />
-                        </a>
-                    </div>
-
-                    <div class="blog-detail">
-                        <label>Email Marketing</label>
-                        <a href="blog-detail.html">
-                            <h3>Best selling bag online market place...</h3>
-                        </a>
-                        <h5 class="text-content">Anil Viradiya - MARCH 9, 2022</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="blog-box ratio_45">
-                    <div class="blog-box-image">
-                        <a href="blog-detail.html">
-                            <img src="../assets/images/grocery/blog/3.jpg" class="blur-up lazyload bg-img"
-                                alt="" />
-                        </a>
-                    </div>
-
-                    <div class="blog-detail">
-                        <label>Conversion rate optimization</label>
-                        <a href="blog-detail.html">
-                            <h3>Best selling bag online market place...</h3>
-                        </a>
-                        <h5 class="text-content">Anil Viradiya - MARCH 9, 2022</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="blog-box ratio_45">
-                    <div class="blog-box-image">
-                        <a href="blog-detail.html">
-                            <img src="../assets/images/grocery/blog/1.jpg" class="blur-up lazyload bg-img"
-                                alt="" />
-                        </a>
-                    </div>
-
-                    <div class="blog-detail">
-                        <label>Conversion rate optimization</label>
-                        <a href="blog-detail.html">
-                            <h3>Best selling bag online market place...</h3>
-                        </a>
-                        <h5 class="text-content">Anil Viradiya - MARCH 9, 2022</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="blog-box ratio_45">
-                    <div class="blog-box-image">
-                        <a href="blog-detail.html">
-                            <img src="../assets/images/grocery/blog/3.jpg" class="blur-up lazyload bg-img"
-                                alt="" />
-                        </a>
-                    </div>
-
-                    <div class="blog-detail">
-                        <label>Conversion rate optimization</label>
-                        <a href="blog-detail.html">
-                            <h3>Best selling bag online market place...</h3>
-                        </a>
-                        <h5 class="text-content">Anil Viradiya - MARCH 9, 2022</h5>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>

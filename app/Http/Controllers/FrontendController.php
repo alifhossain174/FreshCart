@@ -10,12 +10,15 @@ class FrontendController extends Controller
     public function index(){
         $sliders = DB::table('banners')->where('type', 1)->where('status', 1)->orderBy('serial', 'asc')->get();
         $topBanners = DB::table('banners')->where('type', 2)->where('position', 'top')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $middleBanners = DB::table('banners')->where('type', 2)->where('position', 'middle')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $bottomBanners = DB::table('banners')->where('type', 2)->where('position', 'bottom')->where('status', 1)->orderBy('serial', 'asc')->get();
         $categories = DB::table('categories')->where('status', 1)->where('show_on_navbar', 1)->orderBy('serial', 'asc')->get();
         $featuredCategories = DB::table('categories')->where('status', 1)->where('featured', 1)->orderBy('serial', 'asc')->get();
         $promoOffers = DB::table('promo_codes')->where('status', 1)->where('effective_date', '<=', date("Y-m-d"))->where('expire_date', '>=', date("Y-m-d"))->get();
         $offerProducts = DB::table('products')->where('special_offer', 1)->where('offer_end_time', '>', date("Y-m-d H:i:s"))->inRandomOrder()->skip(0)->limit(5)->get();
-        $flags = DB::table('flags')->where('status', 1)->where('featured', 1)->orderBy('id', 'desc')->get();
-        return view('index', compact('sliders', 'topBanners', 'categories', 'featuredCategories', 'promoOffers', 'offerProducts', 'flags'));
+        $flags = DB::table('flags')->where('status', 1)->where('featured', 1)->orderBy('serial', 'asc')->get();
+        $blogs = DB::table('blogs')->where('status', 1)->orderBy('id', 'desc')->skip(0)->limit(10)->get();
+        return view('index', compact('sliders', 'topBanners', 'categories', 'featuredCategories', 'promoOffers', 'offerProducts', 'flags', 'middleBanners', 'bottomBanners', 'blogs'));
     }
 
     public function searchForProducts(Request $request){

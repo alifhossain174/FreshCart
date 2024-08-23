@@ -49,13 +49,12 @@
                 @include('homepageSections.middle_banners')
             @endif
             @if($flagIndex == 5)
-                @include('homepageSections.middle_banners')
+                @include('homepageSections.bottom_banners')
             @endif
-            @include('homepageSections.featured_category')
+            @include('homepageSections.flag_wise_products')
         @endif
     @endforeach
 
-
     @include('homepageSections.blogs')
-    @include('homepageSections.feature')
+
 @endsection
