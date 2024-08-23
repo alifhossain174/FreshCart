@@ -230,7 +230,7 @@
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav">
                                         <li class="nav-item">
-                                            <a class="nav-link dropdown-toggle ps-0 arrow-none" href="{{url('/')}}" data-bs-toggle="dropdown">Home</a>
+                                            <a class="nav-link dropdown-toggle ps-0 arrow-none" href="{{url('/')}}">Home</a>
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="{{url('/shop')}}">Shop</a>

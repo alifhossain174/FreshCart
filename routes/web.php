@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FilterController;
 
 
 Auth::routes();
@@ -14,6 +15,8 @@ Route::get('/', [FrontendController::class, 'index'])->name('Index');
 Route::get('/search/for/products', [FrontendController::class, 'searchForProducts'])->name('SearchForProducts');
 Route::post('/product/quick/view', [FrontendController::class, 'productQuickView'])->name('ProductQuickView');
 Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
+Route::get('/shop', [FrontendController::class, 'shop'])->name('Shop');
+Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');
 
 // blog routes
 Route::get('/blogs', [BlogController::class, 'blogs'])->name('Blogs');
