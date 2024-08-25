@@ -323,14 +323,13 @@
 
                                         <div class="button-group">
                                             <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                            <a href="checkout.html"
-                                                class="btn btn-sm cart-button theme-bg-color text-white">Checkout</a>
+                                            <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color text-white">Checkout</a>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li>
-                                    <a href="cart.html" class="header-icon bag-icon">
+                                    <a href="{{url('view/cart')}}" class="header-icon bag-icon">
                                         <small class="badge-number badge-light">{{ session('cart') ? count(session('cart')) : 0 }}</small>
                                         <i class="iconly-Bag-2 icli"></i>
                                     </a>
@@ -824,7 +823,8 @@
         });
 
         // cart qty increase
-        $('.qty-right-plus').click(function () {
+        // $('.qty-right-plus').click(function () {
+        $(document).on('click', '.qty-right-plus', function () {
 
             var cartQty = Number(Number($(this).prev().val()) + 1);
             $(this).prev().val(cartQty);
@@ -844,6 +844,7 @@
                     toastr.options.positionClass = 'toast-bottom-right';
                     toastr.options.timeOut = 1000;
                     toastr.success("Cart quantity has increased");
+                    $("#view_cart_items").html(data.viewCartItems);
                     // $(".offCanvas__minicart").html(data.rendered_cart);
                     // $(".checkout-order-review-inner").html(data.checkoutCartItems);
                     // $(".order-review-summary").html(data.checkoutTotalAmount);
@@ -856,7 +857,8 @@
         });
 
         // cart qty decrease
-        $('.qty-left-minus').on('click', function () {
+        // $('.qty-left-minus').on('click', function () {
+        $(document).on('click', '.qty-left-minus', function () {
             var $qty = $(this).siblings(".qty-input");
             var _val = parseInt($($qty).val());
             if (_val == 1) {
@@ -876,6 +878,7 @@
                     toastr.options.timeOut = 1000;
                     toastr.error("Item removed from cart");
                     $("a.bag-icon small.badge-number").html(data.cartTotalQty);
+                    $("#view_cart_items").html(data.viewCartItems);
                     // $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
                     // $("#view_cart_items").html(data.viewCartItems);
                     // $("#view_cart_calculation").html(data.viewCartCalculation);
@@ -899,6 +902,7 @@
                         toastr.options.positionClass = 'toast-bottom-right';
                         toastr.options.timeOut = 1000;
                         toastr.success("Cart quantity has decreased");
+                        $("#view_cart_items").html(data.viewCartItems);
                         // $(".offCanvas__minicart").html(data.rendered_cart);
                         // $(".checkout-order-review-inner").html(data.checkoutCartItems);
                         // $(".order-review-summary").html(data.checkoutTotalAmount);
