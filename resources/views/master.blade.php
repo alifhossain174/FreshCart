@@ -336,13 +336,13 @@
                                 </li>
                             </ul>
 
-                            <a href="user-dashboard.html" class="user-box">
+                            <a href="{{url('/login')}}" class="user-box">
                                 <span class="header-icon">
                                     <i class="iconly-Profile icli"></i>
                                 </span>
                                 <div class="user-name">
                                     <h6 class="text-content">My Account</h6>
-                                    <h4 class="mt-1">Jennifer V. Ward</h4>
+                                    <h4 class="mt-1">@auth{{Auth::user()->name}}@endauth</h4>
                                 </div>
                             </a>
 
@@ -484,7 +484,7 @@
                                 <a href="order-success.html" class="light-text">Your Order</a>
                             </li>
                             <li>
-                                <a href="user-dashboard.html" class="light-text">Your Account</a>
+                                <a href="{{url('/login')}}" class="light-text">Your Account</a>
                             </li>
                             <li>
                                 <a href="order-tracking.html" class="light-text">Track Orders</a>
