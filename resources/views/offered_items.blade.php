@@ -104,7 +104,7 @@
             <span class="ms-auto text-content">Hurry up offer end in</span>
         </h5>
 
-        <?php
+        @php
             $targetDate = $offerProduct->offer_end_time;
             $currentDate = new DateTime();
             $endDate = new DateTime($targetDate);
@@ -113,7 +113,7 @@
             $hours = $interval->format('%h');
             $minutes = $interval->format('%i');
             $seconds = $interval->format('%s');
-        ?>
+        @endphp
 
         <div class="timer timer-2 ms-0 my-4" id="clockdiv-{{$index+1}}" data-hours="{{$hours}}" data-minutes="{{$minutes}}" data-seconds="{{$seconds}}">
             <ul class="d-flex justify-content-center" data-target-date="2024-11-25 15:30:00">

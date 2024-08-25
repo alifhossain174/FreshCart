@@ -1,7 +1,7 @@
 <div class="product-box-4 wow fadeInUp">
     <div class="product-image product-image-2">
         <a href="{{url('product')}}/{{$product->slug}}">
-            <img src="{{url('assets')}}/images/product-load.gif" data-src="{{url(env('ADMIN_URL')."/".$product->image)}}" class="lazy img-fluid blur-up lazyload" alt="" />
+            <img src="{{url('assets')}}/images/product-load.gif" data-src="{{url(env('ADMIN_URL')."/".$product->image)}}" class="lazy img-fluid blur-up lazyload w-100" alt="" />
         </a>
 
         <ul class="option">

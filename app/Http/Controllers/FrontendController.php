@@ -71,6 +71,34 @@ class FrontendController extends Controller
 
     }
 
+    public function checkProductDetailsVariant(Request $request){
+
+        $query = DB::table('product_variants')->where('product_id', $request->product_id);
+        if($request->color_id != 'null'){
+            $query->where('color_id', $request->color_id);
+        }
+        if($request->size_id != 'null'){
+            $query->where('size_id', $request->size_id);
+        }
+
+        $data = $query->where('stock', '>', 0)->orderBy('discounted_price', 'asc')->orderBy('price', 'asc')->first();
+        if($data){
+
+            $product = DB::table('products')->where('id', $request->product_id)->first();
+            $returnHTML = view('product_details.cart_buy_button', compact('product'))->render();
+            return response()->json([
+                'rendered_button' => $returnHTML,
+                'price' => $data->price,
+                'discounted_price' => $data->discounted_price,
+                'stock' => $data->stock
+            ]);
+
+        }else {
+            return response()->json(['price' => 0, 'discounted_price' => 0, 'save' => 0, 'stock' => 0]);
+        }
+
+    }
+
     public function shop(Request $request){
 
         $categories = DB::table('categories')->where('status', 1)->orderBy('serial', 'asc')->get();
@@ -204,6 +232,74 @@ class FrontendController extends Controller
         $products->withPath('/shop'.$parameters);
         $showingResults = "Showing ".(($products->currentpage()-1)*$products->perpage()+1)." - ".$products->currentpage()*$products->perpage()." of ".$products->total()." results";
         return view('shop.shop', compact('policies', 'productReviewsOfStore', 'shopBanners', 'sizes', 'showingResults', 'products', 'categories', 'flags', 'brands', 'colors',  'categorySlug', 'subcategorySlug', 'childcategorySlug', 'flagSlug', 'brandSlug', 'sizeSlug', 'colorId', 'sort_by', 'min_price', 'max_price', 'search_keyword', 'storeInfo'));
+    }
+
+    public function productDetails($slug){
+
+        $product = DB::table('products')
+            ->leftJoin('categories', 'products.category_id', 'categories.id')
+            ->leftJoin('brands', 'products.brand_id', 'brands.id')
+            ->leftJoin('product_models', 'products.model_id', 'product_models.id')
+            ->select('products.*', 'categories.name as category_name', 'categories.slug as category_slug', 'brands.name as brand_name', 'brands.logo as brand_logo', 'product_models.name as model_name')
+            ->where('products.slug', $slug)
+            ->first();
+
+        if($product->store_id){
+            $vendorProducts = DB::table('products')
+                        ->select('products.image', 'products.name', 'price', 'discount_price', 'products.id', 'products.slug', 'stock', 'has_variant')
+                        ->where('store_id', $product->store_id)
+                        ->where('id', '!=', $product->id)
+                        ->inRandomOrder()
+                        ->skip(0)
+                        ->limit(12)
+                        ->get();
+        } else{
+            $vendorProducts = array();
+        }
+
+        $relatedProducts = DB::table('products')
+                            ->select('products.image', 'products.name', 'price', 'discount_price', 'products.id', 'products.slug', 'stock', 'has_variant')
+                            ->where('category_id', $product->category_id)
+                            ->where('id', '!=', $product->id)
+                            ->inRandomOrder()
+                            ->skip(0)
+                            ->limit(12)
+                            ->get();
+
+        $mayLikedProducts = DB::table('products')
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+            ->leftJoin('subcategories', 'products.subcategory_id', '=', 'subcategories.id')
+            ->leftJoin('flags', 'products.flag_id', 'flags.id')
+            ->select('products.image', 'products.name', 'price', 'discount_price', 'products.id', 'products.slug', 'stock', 'has_variant', 'flags.name as flag_name', 'categories.name as category_name', 'subcategories.name as subcategory_name')
+            ->where('products.id', '!=', $product->id)
+            ->inRandomOrder()
+            ->skip(0)
+            ->limit(10)
+            ->get();
+
+        $productReviews = DB::table('product_reviews')
+            ->leftJoin('users', 'product_reviews.user_id', 'users.id')
+            ->select('product_reviews.rating', 'product_reviews.review', 'product_reviews.reply', 'product_reviews.created_at', 'product_reviews.updated_at', 'product_reviews.status', 'users.name as username', 'users.image as user_image')
+            ->where('product_reviews.product_id', $product->id)
+            ->where('product_reviews.status', 1)
+            ->orderBy('product_reviews.id', 'desc')
+            ->paginate(10);
+
+        $totalReviews = $productReviews->total();
+        $totalRating = DB::table('product_reviews')->where('product_reviews.product_id', $product->id)->where('product_reviews.status', 1)->sum('rating');
+        $averageRating = $totalReviews > 0 ? $totalRating/$totalReviews : 0;
+
+        $productMultipleImages = DB::table('product_images')->select('image')->where('product_id', $product->id)->get();
+        $variants = DB::table('product_variants')
+            ->leftJoin('colors', 'product_variants.color_id', 'colors.id')
+            ->leftJoin('product_sizes', 'product_variants.size_id', 'product_sizes.id')
+            ->select('product_variants.*', 'colors.id as color_id', 'colors.name as color_name', 'colors.code as color_code', 'product_sizes.name as size_name')
+            ->where('product_variants.product_id', $product->id)
+            ->get();
+
+        $configSetup = DB::table('config_setups')->get();
+
+        return view('product_details.details', compact('vendorProducts', 'relatedProducts', 'mayLikedProducts', 'product', 'averageRating', 'totalReviews', 'productReviews', 'productMultipleImages', 'variants', 'configSetup'));
     }
 
     public static function generateRandomHexColor() {

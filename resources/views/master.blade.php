@@ -194,7 +194,7 @@
                                                 <i class="iconly-Search icli"></i>
                                             </button>
                                             <input type="text" autocomplete="off" @if(isset($search_keyword)) value="{{$search_keyword}}" @endif name="search_keyword" id="search_keyword" class="form-control" placeholder="Search for products..." required/>
-                                            <button class="btn search-button" type="button">Search</button>
+                                            <button class="btn search-button" type="submit">Search</button>
                                         </div>
                                     </form>
                                 </div>
@@ -741,11 +741,6 @@
     <script src="{{ url('assets') }}/js/lazysizes.min.js"></script>
     <script src="{{ url('assets') }}/js/quantity-2.js"></script>
     <script src="{{ url('assets') }}/js/fly-cart.js"></script>
-    <script src="{{ url('assets') }}/js/timer1.js"></script>
-    <script src="{{ url('assets') }}/js/timer2.js"></script>
-    <script src="{{ url('assets') }}/js/timer3.js"></script>
-    <script src="{{ url('assets') }}/js/timer4.js"></script>
-    <script src="{{ url('assets') }}/js/timer5.js"></script>
     <script src="{{ url('assets') }}/js/clipboard.min.js"></script>
     <script src="{{ url('assets') }}/js/copy-clipboard.js"></script>
     <script src="{{ url('assets') }}/js/wow.min.js"></script>

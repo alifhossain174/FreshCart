@@ -58,3 +58,11 @@
     @include('homepageSections.blogs')
 
 @endsection
+
+@section('footer_js')
+    <script src="{{ url('assets') }}/js/timer1.js"></script>
+    <script src="{{ url('assets') }}/js/timer2.js"></script>
+    <script src="{{ url('assets') }}/js/timer3.js"></script>
+    <script src="{{ url('assets') }}/js/timer4.js"></script>
+    <script src="{{ url('assets') }}/js/timer5.js"></script>
+@endsection

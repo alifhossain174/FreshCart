@@ -15,8 +15,11 @@ Route::get('/', [FrontendController::class, 'index'])->name('Index');
 Route::get('/search/for/products', [FrontendController::class, 'searchForProducts'])->name('SearchForProducts');
 Route::post('/product/quick/view', [FrontendController::class, 'productQuickView'])->name('ProductQuickView');
 Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
+Route::post('check/product/details/variant', [FrontendController::class, 'checkProductDetailsVariant'])->name('CheckProductDetailsVariant');
+
 Route::get('/shop', [FrontendController::class, 'shop'])->name('Shop');
 Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');
+Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('ProductDetails');
 
 // blog routes
 Route::get('/blogs', [BlogController::class, 'blogs'])->name('Blogs');
@@ -32,4 +35,14 @@ Route::get('view/cart', [CartController::class, 'viewCart'])->name('ViewCart');
 Route::get('clear/cart', [CartController::class, 'clearCart'])->name('ClearCart');
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::post('submit/product/review', [HomeController::class, 'submitProductReview'])->name('SubmitProductReview');
+    Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+});
