@@ -845,9 +845,10 @@
                     toastr.options.timeOut = 1000;
                     toastr.success("Cart quantity has increased");
                     $("#view_cart_items").html(data.viewCartItems);
+                    $("#view_cart_calculation").html(data.viewCartCalculation);
                     // $(".offCanvas__minicart").html(data.rendered_cart);
-                    // $(".checkout-order-review-inner").html(data.checkoutCartItems);
-                    // $(".order-review-summary").html(data.checkoutTotalAmount);
+                    $(".checkout-order-review-inner").html(data.checkoutCartItems);
+                    $(".order-review-summary").html(data.checkoutTotalAmount);
                 },
                 error: function(data) {
                     console.log('Error:', data);
@@ -879,13 +880,13 @@
                     toastr.error("Item removed from cart");
                     $("a.bag-icon small.badge-number").html(data.cartTotalQty);
                     $("#view_cart_items").html(data.viewCartItems);
+                    $("#view_cart_calculation").html(data.viewCartCalculation);
+                    $(".checkout-order-review-inner").html(data.checkoutCartItems);
                     // $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
-                    // $("#view_cart_items").html(data.viewCartItems);
-                    // $("#view_cart_calculation").html(data.viewCartCalculation);
                     // $("span.cart-count").html(data.cartTotalQty);
                     // $("#product_details_cart_qty").val(1);
                     // $("table.cart-single-product-table tbody").html(data.checkoutCartItems);
-                    // $(".order-review-summary").html(data.checkoutTotalAmount);
+                    $(".order-review-summary").html(data.checkoutTotalAmount);
                 })
             } else {
                 var formData = new FormData();
@@ -903,9 +904,10 @@
                         toastr.options.timeOut = 1000;
                         toastr.success("Cart quantity has decreased");
                         $("#view_cart_items").html(data.viewCartItems);
+                        $("#view_cart_calculation").html(data.viewCartCalculation);
                         // $(".offCanvas__minicart").html(data.rendered_cart);
-                        // $(".checkout-order-review-inner").html(data.checkoutCartItems);
-                        // $(".order-review-summary").html(data.checkoutTotalAmount);
+                        $(".checkout-order-review-inner").html(data.checkoutCartItems);
+                        $(".order-review-summary").html(data.checkoutTotalAmount);
                     },
                     error: function(data) {
                         console.log('Error:', data);

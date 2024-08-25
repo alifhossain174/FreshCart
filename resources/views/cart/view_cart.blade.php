@@ -67,45 +67,8 @@
                 </div>
 
                 <div class="col-xxl-3">
-                    <div class="summery-box p-sticky">
-                        <div class="summery-header">
-                            <h3>Cart Total</h3>
-                        </div>
-
-                        <div class="summery-contain">
-                            <ul>
-                                <li>
-                                    <h4>Product</h4>
-                                    <h4 class="price">$125.65</h4>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <ul class="summery-total">
-                            <li class="list-total border-top-0">
-                                <h4>Total (USD)</h4>
-                                <h4 class="price theme-color">$132.58</h4>
-                            </li>
-                        </ul>
-
-                        <div class="button-group cart-button">
-                            <ul>
-                                <li>
-                                    <button onclick="location.href = 'checkout.html';"
-                                        class="btn btn-animation proceed-btn fw-bold">
-                                        Process To Checkout
-                                    </button>
-                                </li>
-
-                                <li>
-                                    <button onclick="location.href = '{{url('/')}}';"
-                                        class="btn btn-light shopping-button text-dark">
-                                        <i class="fa-solid fa-arrow-left-long"></i>Return To
-                                        Shopping
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="summery-box p-sticky" id="view_cart_calculation">
+                        @include('cart.cart_calculation')
                     </div>
                 </div>
             </div>
@@ -122,6 +85,7 @@
 
             $.get("{{ url('remove/cart/item') }}" + '/' + id, function(data) {
                 $("#view_cart_items").html(data.viewCartItems);
+                $("#view_cart_calculation").html(data.viewCartCalculation);
             })
         });
     </script>

@@ -59,15 +59,15 @@ class CartController extends Controller
 
         // $returnHTML = view('sidebar_cart')->render();
         $viewCartItems = view('cart.cart_items')->render();
-        // $viewCartCalculation = view('cart.cart_calculation')->render();
-        // $checkoutCartItems = view('checkout.cart_items')->render();
-        // $checkoutTotalAmount = view('checkout.order_total')->render();
+        $viewCartCalculation = view('cart.cart_calculation')->render();
+        $checkoutCartItems = view('checkout.cart_items')->render();
+        $checkoutTotalAmount = view('checkout.order_total')->render();
         return response()->json([
             // 'rendered_cart' => $returnHTML,
             'viewCartItems' => $viewCartItems,
-            // 'viewCartCalculation' => $viewCartCalculation,
-            // 'checkoutCartItems' => $checkoutCartItems,
-            // 'checkoutTotalAmount' => $checkoutTotalAmount,
+            'viewCartCalculation' => $viewCartCalculation,
+            'checkoutCartItems' => $checkoutCartItems,
+            'checkoutTotalAmount' => $checkoutTotalAmount,
             'cartTotalQty' => count(session('cart'))
         ]);
     }
@@ -81,15 +81,15 @@ class CartController extends Controller
 
         // $returnHTML = view('sidebar_cart')->render();
         $viewCartItems = view('cart.cart_items')->render();
-        // $viewCartCalculation = view('cart.cart_calculation')->render();
-        // $checkoutCartItems = view('checkout.cart_items')->render();
-        // $checkoutTotalAmount = view('checkout.order_total')->render();
+        $viewCartCalculation = view('cart.cart_calculation')->render();
+        $checkoutCartItems = view('checkout.cart_items')->render();
+        $checkoutTotalAmount = view('checkout.order_total')->render();
         return response()->json([
             // 'rendered_cart' => $returnHTML,
             'viewCartItems' => $viewCartItems,
-            // 'viewCartCalculation' => $viewCartCalculation,
-            // 'checkoutCartItems' => $checkoutCartItems,
-            // 'checkoutTotalAmount' => $checkoutTotalAmount,
+            'viewCartCalculation' => $viewCartCalculation,
+            'checkoutCartItems' => $checkoutCartItems,
+            'checkoutTotalAmount' => $checkoutTotalAmount,
             'success' => 'Cart Qty Updated'
         ]);
     }
