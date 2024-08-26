@@ -15,7 +15,7 @@ class BlogController extends Controller
                     ->select('blogs.*', 'blog_categories.name as category_name')
                     ->where('blogs.status', 1)
                     ->orderBy('blogs.id', 'desc')
-                    ->paginate(2);
+                    ->paginate(12);
 
         return view('blogs', compact('blogs', 'blogCategories', 'randomBlogs'));
     }
