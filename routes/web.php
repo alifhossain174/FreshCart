@@ -10,6 +10,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\VendorController;
 
 
 Auth::routes();
@@ -60,6 +61,14 @@ Route::group(['middleware' => ['web']], function () { //wihout web middleware se
     Route::get('/new/password', [ForgetPasswordController::class, 'newPasswordPage'])->name('NewPasswordPage');
     Route::post('/change/forgotten/password', [ForgetPasswordController::class, 'changeForgetPassword'])->name('ChangeForgetPassword');
 });
+
+
+// vendor
+Route::get('/vendor/shops', [VendorController::class, 'vendorShops'])->name('VendorShops');
+Route::get('/vendor/registration', [VendorController::class, 'vendorRegistration'])->name('VendorRegistration');
+Route::post('/submit/vendor/registration/request', [VendorController::class, 'submitVendorRegistration'])->name('SubmitVendorRegistration');
+Route::get('/vendor/verification', [VendorController::class, 'vendorVerification'])->name('VendorVerification');
+Route::post('/vendor/verify/check', [VendorController::class, 'vendorVerificationCheck'])->name('VendorVerificationCheck');
 
 
 Route::group(['middleware' => ['auth']], function () {

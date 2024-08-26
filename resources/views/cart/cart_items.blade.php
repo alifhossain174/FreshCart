@@ -1,4 +1,4 @@
-@if(session('cart') && count(session('cart')) > 0)
+@if(session('cart') && is_array(session('cart')) && count(session('cart')) > 0)
     @foreach(session('cart') as $id => $details)
     <tr class="product-box-contain">
         <td class="product-detail">

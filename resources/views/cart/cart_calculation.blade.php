@@ -4,18 +4,20 @@
 
 <div class="summery-contain">
     <ul>
-        @foreach(session('cart') as $id => $details)
-        <li>
-            <h4><label>{{$details['quantity']}} × {{ substr($details['name'], 0, 15) }}..</label></h4>
-            <h4 class="price">
-                @if($details['discount_price'] > 0 && $details['discount_price'] < $details['price'])
-                ৳ {{$details['discount_price']*$details['quantity']}}
-                @else
-                ৳ {{$details['price']*$details['quantity']}}
-                @endif
-            </h4>
-        </li>
-        @endforeach
+        @if(session('cart') && is_array(session('cart')) && count(session('cart')) > 0)
+            @foreach(session('cart') as $id => $details)
+                <li>
+                    <h4><label>{{$details['quantity']}} × {{ substr($details['name'], 0, 15) }}..</label></h4>
+                    <h4 class="price">
+                        @if($details['discount_price'] > 0 && $details['discount_price'] < $details['price'])
+                        ৳ {{$details['discount_price']*$details['quantity']}}
+                        @else
+                        ৳ {{$details['price']*$details['quantity']}}
+                        @endif
+                    </h4>
+                </li>
+            @endforeach
+        @endif
     </ul>
 </div>
 

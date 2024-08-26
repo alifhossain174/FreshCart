@@ -3,7 +3,47 @@
 
 @php
     $generalInfo = DB::table('general_infos')
-        ->select('logo_dark', 'logo', 'fav_icon', 'company_name', 'email', 'address', 'custom_css', 'header_script', 'footer_script', 'payment_banner', 'play_store_link', 'contact', 'footer_copyright_text', 'app_store_link', 'whatsapp', 'messenger', 'telegram', 'youtube', 'facebook', 'twitter', 'linkedin', 'instagram', 'primary_color', 'secondary_color', 'tertiary_color', 'title_color', 'paragraph_color', 'border_color', 'google_tag_manager_status', 'google_tag_manager_id', 'google_analytic_status', 'google_analytic_tracking_id', 'fb_pixel_status', 'fb_pixel_app_id', 'tawk_chat_status', 'tawk_chat_link', 'messenger_chat_status', 'fb_page_id', 'short_description')
+        ->select(
+            'logo_dark',
+            'logo',
+            'fav_icon',
+            'company_name',
+            'email',
+            'address',
+            'custom_css',
+            'header_script',
+            'footer_script',
+            'payment_banner',
+            'play_store_link',
+            'contact',
+            'footer_copyright_text',
+            'app_store_link',
+            'whatsapp',
+            'messenger',
+            'telegram',
+            'youtube',
+            'facebook',
+            'twitter',
+            'linkedin',
+            'instagram',
+            'primary_color',
+            'secondary_color',
+            'tertiary_color',
+            'title_color',
+            'paragraph_color',
+            'border_color',
+            'google_tag_manager_status',
+            'google_tag_manager_id',
+            'google_analytic_status',
+            'google_analytic_tracking_id',
+            'fb_pixel_status',
+            'fb_pixel_app_id',
+            'tawk_chat_status',
+            'tawk_chat_link',
+            'messenger_chat_status',
+            'fb_page_id',
+            'short_description',
+        )
         ->where('id', 1)
         ->first();
 @endphp
@@ -21,7 +61,9 @@
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/vendors/bootstrap.css" />
@@ -66,7 +108,8 @@
 
     @if ($generalInfo->google_analytic_status)
         <!-- Google tag (gtag.js) google analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $generalInfo->google_analytic_tracking_id }}" type="53191a76ba85f8f784cbe351-text/javascript"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $generalInfo->google_analytic_tracking_id }}"
+            type="53191a76ba85f8f784cbe351-text/javascript"></script>
         <script type="53191a76ba85f8f784cbe351-text/javascript">
             window.dataLayer = window.dataLayer || [];
 
@@ -135,13 +178,14 @@
     @if ($generalInfo->google_tag_manager_status)
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $generalInfo->google_tag_manager_id }}"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
     @endif
 
     @if ($generalInfo->messenger_chat_status)
-        <a href="{{$generalInfo->fb_page_id}}" target="_blank" style="position: fixed; right: 12px; width: 60px; bottom: 65px; z-index: 99999;">
-            <img src="{{url('assets')}}/images/messenger_icon.png" style="width: 60px">
+        <a href="{{ $generalInfo->fb_page_id }}" target="_blank"
+            style="position: fixed; right: 12px; width: 60px; bottom: 65px; z-index: 99999;">
+            <img src="{{ url('assets') }}/images/messenger_icon.png" style="width: 60px">
         </a>
     @endif
 
@@ -169,8 +213,10 @@
                                     <i class="iconly-Category icli"></i>
                                 </span>
                             </button>
-                            <a href="{{url('/')}}" class="web-logo nav-logo">
-                                <img src="{{ url(env('ADMIN_URL') . '/' . $generalInfo->logo) }}" alt="{{$generalInfo->company_name}}" class="img-fluid blur-up lazyload" alt="" />
+                            <a href="{{ url('/') }}" class="web-logo nav-logo">
+                                <img src="{{ url(env('ADMIN_URL') . '/' . $generalInfo->logo) }}"
+                                    alt="{{ $generalInfo->company_name }}" class="img-fluid blur-up lazyload"
+                                    alt="" />
                             </a>
 
                             <div class="search-full">
@@ -178,7 +224,8 @@
                                     <span class="input-group-text">
                                         <i data-feather="search" class="font-light"></i>
                                     </span>
-                                    <input type="text" class="form-control search-type" placeholder="Search here.." />
+                                    <input type="text" class="form-control search-type"
+                                        placeholder="Search here.." />
                                     <span class="input-group-text close-search">
                                         <i data-feather="x" class="font-light"></i>
                                     </span>
@@ -187,13 +234,17 @@
 
                             <div class="middle-box">
                                 <div class="center-box">
-                                    <form action="{{url('search/for/products')}}" method="GET">
+                                    <form action="{{ url('search/for/products') }}" method="GET">
                                         @csrf
-                                        <div class="searchbar-box-2 input-group d-xl-flex d-none" style="position: relative">
+                                        <div class="searchbar-box-2 input-group d-xl-flex d-none"
+                                            style="position: relative">
                                             <button class="btn search-icon" type="button">
                                                 <i class="iconly-Search icli"></i>
                                             </button>
-                                            <input type="text" autocomplete="off" @if(isset($search_keyword)) value="{{$search_keyword}}" @endif name="search_keyword" id="search_keyword" class="form-control" placeholder="Search for products..." required/>
+                                            <input type="text" autocomplete="off"
+                                                @if (isset($search_keyword)) value="{{ $search_keyword }}" @endif
+                                                name="search_keyword" id="search_keyword" class="form-control"
+                                                placeholder="Search for products..." required />
                                             <button class="btn search-button" type="submit">Search</button>
                                         </div>
                                     </form>
@@ -203,10 +254,11 @@
                             <div class="rightside-menu support-sidemenu">
                                 <div class="support-box">
                                     <div class="support-image">
-                                        <img src="{{url('assets')}}/images/icon/support.png" class="img-fluid blur-up lazyload" alt="" />
+                                        <img src="{{ url('assets') }}/images/icon/support.png"
+                                            class="img-fluid blur-up lazyload" alt="" />
                                     </div>
                                     <div class="support-number">
-                                        <h2>{{$generalInfo->contact}}</h2>
+                                        <h2>{{ $generalInfo->contact }}</h2>
                                         <h4>24/7 Support Center</h4>
                                     </div>
                                 </div>
@@ -225,27 +277,34 @@
                             <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
                                 <div class="offcanvas-header navbar-shadow">
                                     <h5>Menu</h5>
-                                    <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav">
                                         <li class="nav-item">
-                                            <a class="nav-link dropdown-toggle ps-0 arrow-none" href="{{url('/')}}">Home</a>
+                                            <a class="nav-link dropdown-toggle ps-0 arrow-none"
+                                                href="{{ url('/') }}">Home</a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/shop')}}">Shop</a>
+                                            <a class="nav-link dropdown-toggle arrow-none"
+                                                href="{{ url('/shop') }}">Shop</a>
                                         </li>
                                         <li class="nav-item dropdown new-nav-item">
-                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/vendor/shops')}}">Vendors</a>
+                                            <a class="nav-link dropdown-toggle arrow-none"
+                                                href="{{ url('/vendor/shops') }}">Vendors</a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/blogs')}}">Blogs</a>
+                                            <a class="nav-link dropdown-toggle arrow-none"
+                                                href="{{ url('/blogs') }}">Blogs</a>
                                         </li>
                                         <li class="nav-item dropdown new-nav-item">
-                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/about')}}">About us</a>
+                                            <a class="nav-link dropdown-toggle arrow-none"
+                                                href="{{ url('/about') }}">About us</a>
                                         </li>
                                         <li class="nav-item dropdown new-nav-item">
-                                            <a class="nav-link dropdown-toggle arrow-none" href="{{url('/contact')}}">Contact</a>
+                                            <a class="nav-link dropdown-toggle arrow-none"
+                                                href="{{ url('/contact') }}">Contact</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -323,38 +382,36 @@
 
                                         <div class="button-group">
                                             <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                            <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color text-white">Checkout</a>
+                                            <a href="checkout.html"
+                                                class="btn btn-sm cart-button theme-bg-color text-white">Checkout</a>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li>
-                                    <a href="{{url('view/cart')}}" class="header-icon bag-icon">
-                                        <small class="badge-number badge-light">{{ session('cart') ? count(session('cart')) : 0 }}</small>
+                                    <a href="{{ url('view/cart') }}" class="header-icon bag-icon">
+                                        <small
+                                            class="badge-number badge-light">{{ session('cart') ? count(session('cart')) : 0 }}</small>
                                         <i class="iconly-Bag-2 icli"></i>
                                     </a>
                                 </li>
                             </ul>
 
-                            <a href="{{url('/login')}}" class="user-box">
+                            <a href="{{ url('/login') }}" class="user-box">
                                 <span class="header-icon">
                                     <i class="iconly-Profile icli"></i>
                                 </span>
                                 <div class="user-name">
                                     <h6 class="text-content">My Account</h6>
-                                    <h4 class="mt-1">@auth{{Auth::user()->name}}@endauth</h4>
+                                    <h4 class="mt-1">@auth{{ Auth::user()->name }}@endauth
+                                    </h4>
                                 </div>
                             </a>
 
-                            <a target="_blank" class="btn mobile-app d-xxl-flex d-none"
-                                href="https://play.google.com/store/games?utm_source=apac_med&utm_medium=hasem&utm_content=Oct0121&utm_campaign=Evergreen&pcampaignid=MKT-EDR-apac-in-1003227-med-hasem-py-Evergreen-Oct0121-Text_Search_BKWS-BKWS%7CONSEM_kwid_43700065205026415_creativeid_535350509927_device_c&gclid=Cj0KCQjw8uOWBhDXARIsAOxKJ2H1K3VqdJFHodt0-XSnQzcuOuTP-s2aPBE6lG0QVOf8D5cJBsB-DxQaAkNAEALw_wcB&gclsrc=aw.ds">
-                                <div class="mobile-image">
-                                    <img src="../assets/images/icon/mobile.png" class="img-fluid blur-up lazyload"
-                                        alt="" />
-                                </div>
-
+                            <a class="btn mobile-app d-xxl-flex d-none" href="{{url('vendor/registration')}}">
+                                <i class="fa fa-shop"></i>
                                 <div class="mobile-name">
-                                    <h4>Download App</h4>
+                                    <h4>Bcome a vendor</h4>
                                 </div>
                             </a>
                         </div>
@@ -369,7 +426,7 @@
     <div class="mobile-menu d-md-none d-block mobile-cart">
         <ul>
             <li class="active">
-                <a href="{{url('/')}}">
+                <a href="{{ url('/') }}">
                     <i class="iconly-Home icli"></i>
                     <span>Home</span>
                 </a>
@@ -484,7 +541,7 @@
                                 <a href="order-success.html" class="light-text">Your Order</a>
                             </li>
                             <li>
-                                <a href="{{url('/login')}}" class="light-text">Your Account</a>
+                                <a href="{{ url('/login') }}" class="light-text">Your Account</a>
                             </li>
                             <li>
                                 <a href="order-tracking.html" class="light-text">Track Orders</a>
@@ -809,10 +866,10 @@
         });
 
         // add to cart
-        $(".addcart-button").click(function () {
+        $(".addcart-button").click(function() {
             var id = $(this).data('id');
             $(this).next().addClass("open");
-            $("#cart_qty_"+id).val(1);
+            $("#cart_qty_" + id).val(1);
 
             $.get("{{ url('add/to/cart') }}" + '/' + id, function(data) {
                 toastr.options.positionClass = 'toast-bottom-right';
@@ -824,7 +881,7 @@
 
         // cart qty increase
         // $('.qty-right-plus').click(function () {
-        $(document).on('click', '.qty-right-plus', function () {
+        $(document).on('click', '.qty-right-plus', function() {
 
             var cartQty = Number(Number($(this).prev().val()) + 1);
             $(this).prev().val(cartQty);
@@ -859,7 +916,7 @@
 
         // cart qty decrease
         // $('.qty-left-minus').on('click', function () {
-        $(document).on('click', '.qty-left-minus', function () {
+        $(document).on('click', '.qty-left-minus', function() {
             var $qty = $(this).siblings(".qty-input");
             var _val = parseInt($($qty).val());
             if (_val == 1) {
@@ -872,7 +929,7 @@
             }
 
             var id = $(this).data('id');
-            if(parseInt($($qty).val()) == 0){
+            if (parseInt($($qty).val()) == 0) {
                 var id = $(this).data('id');
                 $.get("{{ url('remove/cart/item') }}" + '/' + id, function(data) {
                     toastr.options.positionClass = 'toast-bottom-right';
@@ -918,7 +975,7 @@
         });
 
         // quick view
-        function showQuickView(productSlug){
+        function showQuickView(productSlug) {
             var formData = new FormData();
             formData.append("product_slug", productSlug);
             $.ajax({
