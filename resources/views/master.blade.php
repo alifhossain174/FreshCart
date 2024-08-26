@@ -319,12 +319,12 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                {{-- <li>
                                     <a href="compare.html" class="header-icon">
                                         <small class="badge-number badge-light">2</small>
                                         <i class="iconly-Swap icli"></i>
                                     </a>
-                                </li>
+                                </li> --}}
 
                                 <li class="onhover-dropdown">
                                     <a href="wishlist.html" class="header-icon swap-icon">
@@ -518,7 +518,7 @@
                                 <a href="about-us.html" class="light-text">About Us</a>
                             </li>
                             <li>
-                                <a href="contact-us.html" class="light-text">Contact Us</a>
+                                <a href="{{url('/contact')}}" class="light-text">Contact Us</a>
                             </li>
                             <li>
                                 <a href="term_condition.html" class="light-text">Terms & Coditions</a>

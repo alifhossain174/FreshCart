@@ -11,6 +11,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\VendorController;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 
 Auth::routes();
@@ -20,6 +21,9 @@ Route::get('/search/for/products', [FrontendController::class, 'searchForProduct
 Route::post('/product/quick/view', [FrontendController::class, 'productQuickView'])->name('ProductQuickView');
 Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
 Route::post('check/product/details/variant', [FrontendController::class, 'checkProductDetailsVariant'])->name('CheckProductDetailsVariant');
+
+Route::get('/contact', [FrontendController::class, 'contact'])->name('Contact');
+Route::post('/submit/contact/request', [FrontendController::class, 'submitContactRequest'])->name('SubmitContactRequest')->middleware(ProtectAgainstSpam::class)->middleware(['throttle:3,1']);
 
 Route::get('/shop', [FrontendController::class, 'shop'])->name('Shop');
 Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');

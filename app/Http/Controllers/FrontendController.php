@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -326,5 +328,33 @@ class FrontendController extends Controller
         $blueHex = str_pad(dechex($blue), 2, '0', STR_PAD_LEFT);
         $lightenedHex = '#' . $redHex . $greenHex . $blueHex;
         return $lightenedHex;
+    }
+
+    public function contact(){
+        $contactInfo = DB::table('general_infos')
+                                        ->select('email', 'address', 'contact', 'trade_license_no', 'google_map_link')
+                                        ->where('id', 1)
+                                        ->first();
+        return view('contact', compact('contactInfo'));
+    }
+
+    public function submitContactRequest(Request $request){
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
+        ]);
+
+        DB::table('contact_requests')->insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message,
+            'status' => 0,
+            'created_at' => Carbon::now()
+        ]);
+
+        Toastr::success('Request is Submitted', 'Success');
+        return back();
     }
 }
