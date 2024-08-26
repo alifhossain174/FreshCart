@@ -56,11 +56,15 @@ Route::post('change/delivery/method', [CheckoutController::class, 'changeDeliver
 Route::post('place/order', [CheckoutController::class, 'placeOrder'])->name('PlaceOrder');
 Route::get('order/{slug}', [CheckoutController::class, 'orderPreview'])->name('OrderPreview');
 
-
 // social login
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('RedirectToGoogle');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('HandleGoogleCallback');
 
+// policy pages
+Route::get('privacy/policy', [FrontendController::class, 'privacyPolicy'])->name('PrivacyPolicy');
+Route::get('terms/of/services', [FrontendController::class, 'termsOfServices'])->name('TermsOfServices');
+Route::get('return/policy', [FrontendController::class, 'returnPolicy'])->name('ReturnPolicy');
+Route::get('shipping/policy', [FrontendController::class, 'shippingPolicy'])->name('ShippingPolicy');
 
 // forget password
 Route::group(['middleware' => ['web']], function () { //wihout web middleware session will not work
@@ -69,7 +73,6 @@ Route::group(['middleware' => ['web']], function () { //wihout web middleware se
     Route::get('/new/password', [ForgetPasswordController::class, 'newPasswordPage'])->name('NewPasswordPage');
     Route::post('/change/forgotten/password', [ForgetPasswordController::class, 'changeForgetPassword'])->name('ChangeForgetPassword');
 });
-
 
 // vendor
 Route::get('/vendor/shops', [VendorController::class, 'vendorShops'])->name('VendorShops');

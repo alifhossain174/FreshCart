@@ -524,7 +524,7 @@
                                 <a href="term_condition.html" class="light-text">Terms & Coditions</a>
                             </li>
                             <li>
-                                <a href="careers.html" class="light-text">Careers</a>
+                                <a href="careers.html" class="light-text">Policy</a>
                             </li>
                             <li>
                                 <a href="blog-list.html" class="light-text">Latest Blog</a>
