@@ -202,6 +202,8 @@
     </div>
     <!-- Loader End -->
 
+    @stack('user_dashboard_menu')
+
     <!-- Header Start -->
     <header class="header-3">
         <div class="top-nav sticky-header sticky-header-2">
@@ -587,6 +589,10 @@
         </div>
     </footer>
     <!-- Footer End -->
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 
     <!-- Quick View Modal Box Start -->
     @include('quick_view.modal')

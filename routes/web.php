@@ -11,6 +11,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\UserDashboardController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 
@@ -98,6 +100,37 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/view/wishlist', [HomeController::class, 'viewWishList'])->name('ViewWishList');
+
+
+        Route::get('/my/orders', [UserDashboardController::class, 'userDashboard'])->name('UserDashboard');
+        Route::get('/order/details/{slug}', [UserDashboardController::class, 'orderDetails'])->name('OrderDetails');
+        Route::get('/track/my/order/{order_no}', [UserDashboardController::class, 'trackMyOrder'])->name('TrackMyOrder');
+        Route::get('/my/wishlists', [UserDashboardController::class, 'myWishlists'])->name('MyWishlists');
+        Route::get('/my/payments', [UserDashboardController::class, 'myPayments'])->name('MyPayments');
+        Route::get('/clear/all/wishlist', [UserDashboardController::class, 'clearAllWishlist'])->name('clearAllWishlist');
+        Route::get('/promo/coupons', [UserDashboardController::class, 'promoCoupons'])->name('PromoCoupons');
+        Route::get('/change/password', [UserDashboardController::class, 'changePassword'])->name('ChangePassword');
+        Route::post('/update/password', [UserDashboardController::class, 'updatePassword'])->name('UpdatePassword');
+        Route::get('/product/reviews', [UserDashboardController::class, 'productReviews'])->name('productReviews');
+        Route::get('/delete/product/review/{id}', [UserDashboardController::class, 'deleteProductReview'])->name('DeleteProductReview');
+        Route::post('/update/product/review', [UserDashboardController::class, 'updateProductReview'])->name('UpdateProductReview');
+        Route::get('/manage/profile', [UserDashboardController::class, 'manageProfile'])->name('ManageProfile');
+        Route::get('/remove/user/image', [UserDashboardController::class, 'removeUserImage'])->name('RemoveUserImage');
+        Route::get('/unlink/google/account', [UserDashboardController::class, 'unlinkGoogleAccount'])->name('UnlinkGoogleAccount');
+        Route::post('/update/profile', [UserDashboardController::class, 'updateProfile'])->name('UpdateProfile');
+        Route::post('/send/otp/profile', [UserDashboardController::class, 'sendOtpProfile'])->name('SendOtpProfile');
+        Route::post('/verify/sent/otp', [UserDashboardController::class, 'verifySentOtp'])->name('VerifySentOtp');
+        Route::get('/user/address', [UserDashboardController::class, 'userAddress'])->name('UserAddress');
+        Route::post('/save/user/address', [UserDashboardController::class, 'saveUserAddress'])->name('SaveUserAddress');
+        Route::get('/remove/user/address/{slug}', [UserDashboardController::class, 'removeUserAddress'])->name('RemoveUserAddress');
+        Route::post('/update/user/address', [UserDashboardController::class, 'updateUserAddress'])->name('UpdateUserAddress');
+
+
+        Route::get('/support/tickets', [SupportTicketController::class, 'supportTickets'])->name('SupportTickets');
+        Route::get('/create/ticket', [SupportTicketController::class, 'createTicket'])->name('createTicket');
+        Route::post('/save/support/ticket', [SupportTicketController::class, 'saveSupportTicket'])->name('SaveSupportTicket');
+        Route::get('/support/ticket/message/{slug}', [SupportTicketController::class, 'supportTicketMessage'])->name('SupportTicketMessage');
+        Route::post('send/support/message', [SupportTicketController::class, 'sendSupportMessage'])->name('SendSupportMessage');
 
     });
 

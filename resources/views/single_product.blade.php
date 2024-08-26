@@ -11,7 +11,8 @@
                 </a>
             </li>
             <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                <a href="javascript:void(0)" class="notifi-wishlist">
+                <a href="{{url('add/to/wishlist/')}}/{{$product->slug}}">
+                    {{-- class="notifi-wishlist" --}}
                     <i class="iconly-Heart icli"></i>
                 </a>
             </li>
