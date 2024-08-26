@@ -8,6 +8,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\GoogleController;
 
 
 Auth::routes();
@@ -46,13 +48,35 @@ Route::post('place/order', [CheckoutController::class, 'placeOrder'])->name('Pla
 Route::get('order/{slug}', [CheckoutController::class, 'orderPreview'])->name('OrderPreview');
 
 
+// social login
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('RedirectToGoogle');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('HandleGoogleCallback');
+
+
+// forget password
+Route::group(['middleware' => ['web']], function () { //wihout web middleware session will not work
+    Route::get('/forget/password', [ForgetPasswordController::class, 'userForgetPassword'])->name('UserForgetPassword');
+    Route::post('/send/forget/password/code', [ForgetPasswordController::class, 'sendForgetPasswordCode'])->name('SendForgetPasswordCode');
+    Route::get('/new/password', [ForgetPasswordController::class, 'newPasswordPage'])->name('NewPasswordPage');
+    Route::post('/change/forgotten/password', [ForgetPasswordController::class, 'changeForgetPassword'])->name('ChangeForgetPassword');
+});
+
+
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::post('submit/product/review', [HomeController::class, 'submitProductReview'])->name('SubmitProductReview');
-    Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+    Route::get('/user/verification', [HomeController::class, 'userVerification'])->name('UserVerification');
+    Route::post('/user/verify/check', [HomeController::class, 'userVerifyCheck'])->name('UserVerifyCheck');
+    Route::get('/user/verification/resend', [HomeController::class, 'userVerificationResend'])->name('UserVerificationResend');
 
-    Route::post('apply/for/reward/points', [CheckoutController::class, 'applyForRewardPoints'])->name('ApplyForRewardPoints');
+    Route::group(['middleware' => ['CheckUserVerification']], function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::post('submit/product/review', [HomeController::class, 'submitProductReview'])->name('SubmitProductReview');
+        Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+
+        Route::post('apply/for/reward/points', [CheckoutController::class, 'applyForRewardPoints'])->name('ApplyForRewardPoints');
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    });
 
 });
