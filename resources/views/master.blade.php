@@ -515,7 +515,7 @@
                         </div>
                         <ul class="footer-list footer-contact footer-list-light">
                             <li>
-                                <a href="about-us.html" class="light-text">About Us</a>
+                                <a href="{{ url('/about') }}" class="light-text">About Us</a>
                             </li>
                             <li>
                                 <a href="{{url('/contact')}}" class="light-text">Contact Us</a>

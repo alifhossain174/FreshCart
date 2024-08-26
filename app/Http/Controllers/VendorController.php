@@ -17,21 +17,8 @@ use Illuminate\Support\Facades\DB;
 class VendorController extends Controller
 {
     public function vendorShops(Request $request){
-        $sortBy = isset($request->sort_by) ? $request->sort_by : 1;
-
-        if($sortBy == 1){
-            $stores = DB::table('stores')->orderBy('id', 'desc')->paginate(9);
-        } else if($sortBy == 2){
-            $stores = DB::table('stores')->orderBy('id', 'asc')->paginate(9);
-        } else if($sortBy == 3){
-            $stores = DB::table('stores')->orderBy('store_name', 'asc')->paginate(9);
-        } else if($sortBy == 4){
-            $stores = DB::table('stores')->orderBy('store_name', 'desc')->paginate(9);
-        } else{
-            $stores = DB::table('stores')->orderBy('id', 'asc')->paginate(9);
-        }
-
-        return view('vendors.shops', compact('stores', 'sortBy'));
+        $stores = DB::table('stores')->where('status', 1)->orderBy('id', 'asc')->paginate(9);
+        return view('vendors.shops', compact('stores'));
     }
 
     public function vendorRegistration(){

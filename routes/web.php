@@ -22,8 +22,12 @@ Route::post('/product/quick/view', [FrontendController::class, 'productQuickView
 Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
 Route::post('check/product/details/variant', [FrontendController::class, 'checkProductDetailsVariant'])->name('CheckProductDetailsVariant');
 
+
+Route::get('/about', [FrontendController::class, 'about'])->name('About');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('Contact');
 Route::post('/submit/contact/request', [FrontendController::class, 'submitContactRequest'])->name('SubmitContactRequest')->middleware(ProtectAgainstSpam::class)->middleware(['throttle:3,1']);
+Route::post('subscribe/for/newsletter', [FrontendController::class, 'subscribeForNewsletter'])->name('SubscribeForNewsletter')->middleware(ProtectAgainstSpam::class)->middleware(['throttle:3,1']);
+
 
 Route::get('/shop', [FrontendController::class, 'shop'])->name('Shop');
 Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');

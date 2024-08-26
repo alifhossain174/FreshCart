@@ -1,0 +1,8 @@
+1. User Dashboard
+2. Terms & Policies
+3. Blogs
+4. Wishlist
+5. Order Tracking
+6. FAQ
+7. Header & Footer
+8. Live Search

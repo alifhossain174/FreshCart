@@ -330,6 +330,15 @@ class FrontendController extends Controller
         return $lightenedHex;
     }
 
+    public function about(){
+        $data = DB::table('about_us')->where('id', 1)->first();
+        $testimonials = DB::table('testimonials')->orderBy('id', 'desc')->get();
+        $brands = DB::table('brands')->where('logo', '!=', null)->where('logo', '!=', '')->orderBy('serial', 'asc')->get();
+        $stores = DB::table('stores')->where('status', 1)->inRandomOrder()->get();
+        $blogs = DB::table('blogs')->where('status', 1)->orderBy('id', 'desc')->skip(0)->limit(10)->get();
+        return view('about', compact('data', 'testimonials', 'brands', 'stores', 'blogs'));
+    }
+
     public function contact(){
         $contactInfo = DB::table('general_infos')
                                         ->select('email', 'address', 'contact', 'trade_license_no', 'google_map_link')
@@ -356,5 +365,21 @@ class FrontendController extends Controller
 
         Toastr::success('Request is Submitted', 'Success');
         return back();
+    }
+
+    public function subscribeForNewsletter(Request $request){
+
+        $data = DB::table('subscribed_users')->where('email', trim($request->email))->first();
+        if($data){
+            Toastr::warning('Already Subscribed', 'Success');
+            return back();
+        } else {
+            DB::table('subscribed_users')->insert([
+                'email' => $request->email,
+                'created_at' => Carbon::now()
+            ]);
+            Toastr::success('Successfully Subscribed', 'Success');
+            return back();
+        }
     }
 }
