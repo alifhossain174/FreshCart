@@ -35,6 +35,14 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function viewWishList(){
+        $products = DB::table('wish_lists')
+                    ->leftJoin('products', 'wish_lists.product_id', 'products.id')
+                    ->select('products.*')
+                    ->where('user_id', Auth::user()->id)->get();
+        return view('wishlist', compact('products'));
+    }
+
     public function userVerification(){
         $randomCode = rand(100000, 999999);
         $userInfo = Auth::user();
@@ -304,6 +312,13 @@ class HomeController extends Controller
             return back();
         }
 
+    }
+
+    public function removeFromWishlist($slug){
+        $productInfo = DB::table('products')->where('slug', $slug)->first();
+        DB::table('wish_lists')->where('product_id', $productInfo->id)->where('user_id', Auth::user()->id)->delete();
+        Toastr::error('Removed From Wishlist');
+        return back();
     }
 
 }

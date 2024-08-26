@@ -92,10 +92,12 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::post('submit/product/review', [HomeController::class, 'submitProductReview'])->name('SubmitProductReview');
         Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+        Route::get('remove/from/wishlist/{slug}', [HomeController::class, 'removeFromWishlist'])->name('removeFromWishlist');
 
         Route::post('apply/for/reward/points', [CheckoutController::class, 'applyForRewardPoints'])->name('ApplyForRewardPoints');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/view/wishlist', [HomeController::class, 'viewWishList'])->name('ViewWishList');
 
     });
 

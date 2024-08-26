@@ -23,6 +23,7 @@
             'telegram',
             'youtube',
             'facebook',
+            'pinterest',
             'twitter',
             'linkedin',
             'instagram',
@@ -43,6 +44,7 @@
             'messenger_chat_status',
             'fb_page_id',
             'short_description',
+            'trade_license_no'
         )
         ->where('id', 1)
         ->first();
@@ -224,8 +226,7 @@
                                     <span class="input-group-text">
                                         <i data-feather="search" class="font-light"></i>
                                     </span>
-                                    <input type="text" class="form-control search-type"
-                                        placeholder="Search here.." />
+                                    <input type="text" class="form-control search-type" placeholder="Search here.." />
                                     <span class="input-group-text close-search">
                                         <i data-feather="x" class="font-light"></i>
                                     </span>
@@ -327,71 +328,15 @@
                                 </li> --}}
 
                                 <li class="onhover-dropdown">
-                                    <a href="wishlist.html" class="header-icon swap-icon">
+                                    <a href="{{url('view/wishlist')}}" class="header-icon swap-icon">
+                                        <small class="badge-number badge-light">@auth {{DB::table('wish_lists')->where('user_id', Auth::user()->id)->count()}} @else 0 @endauth</small>
                                         <i class="iconly-Heart icli"></i>
                                     </a>
-
-                                    <div class="onhover-div">
-                                        <ul class="cart-list">
-                                            <li>
-                                                <div class="drop-cart">
-                                                    <a href="product-left-thumbnail.html" class="drop-image">
-                                                        <img src="../assets/images/vegetable/product/1.png"
-                                                            class="blur-up lazyload" alt="" />
-                                                    </a>
-
-                                                    <div class="drop-contain">
-                                                        <a href="product-left-thumbnail.html">
-                                                            <h5>Fantasy Crunchy Choco Chip Cookies</h5>
-                                                        </a>
-                                                        <h6><span>1 x</span> $80.58</h6>
-                                                        <button class="close-button">
-                                                            <i class="fa-solid fa-xmark"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="drop-cart">
-                                                    <a href="product-left-thumbnail.html" class="drop-image">
-                                                        <img src="../assets/images/vegetable/product/2.png"
-                                                            class="blur-up lazyload" alt="" />
-                                                    </a>
-
-                                                    <div class="drop-contain">
-                                                        <a href="product-left-thumbnail.html">
-                                                            <h5>
-                                                                Peanut Butter Bite Premium Butter Cookies 600
-                                                                g
-                                                            </h5>
-                                                        </a>
-                                                        <h6><span>1 x</span> $25.68</h6>
-                                                        <button class="close-button">
-                                                            <i class="fa-solid fa-xmark"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <div class="price-box">
-                                            <h5>Price :</h5>
-                                            <h4 class="theme-color fw-bold">$106.58</h4>
-                                        </div>
-
-                                        <div class="button-group">
-                                            <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                            <a href="checkout.html"
-                                                class="btn btn-sm cart-button theme-bg-color text-white">Checkout</a>
-                                        </div>
-                                    </div>
                                 </li>
 
                                 <li>
                                     <a href="{{ url('view/cart') }}" class="header-icon bag-icon">
-                                        <small
-                                            class="badge-number badge-light">{{ session('cart') ? count(session('cart')) : 0 }}</small>
+                                        <small class="badge-number badge-light">{{ session('cart') ? count(session('cart')) : 0 }}</small>
                                         <i class="iconly-Bag-2 icli"></i>
                                     </a>
                                 </li>
@@ -433,28 +378,28 @@
             </li>
 
             <li class="mobile-category">
-                <a href="javascript:void(0)">
+                <a href="{{ url('/vendor/shops') }}">
                     <i class="iconly-Category icli js-link"></i>
-                    <span>Category</span>
+                    <span>Vendors</span>
                 </a>
             </li>
 
             <li>
-                <a href="search.html" class="search-box">
-                    <i class="iconly-Search icli"></i>
-                    <span>Search</span>
+                <a href="{{url('shop')}}" class="search-box">
+                    <i class="iconly-Bag icli"></i>
+                    <span>Shop</span>
                 </a>
             </li>
 
             <li>
-                <a href="wishlist.html" class="notifi-wishlist">
+                <a href="{{url('view/wishlist')}}" class="notifi-wishlist">
                     <i class="iconly-Heart icli"></i>
                     <span>My Wish</span>
                 </a>
             </li>
 
             <li>
-                <a href="cart.html">
+                <a href="{{url('view/cart')}}">
                     <i class="iconly-Bag-2 icli fly-cate"></i>
                     <span>Cart</span>
                 </a>
@@ -472,40 +417,44 @@
                 <div class="row g-md-4 gy-sm-5">
                     <div class="col-xxl-3 col-xl-4 col-sm-6">
                         <a href="{{ url('/') }}" class="foot-logo theme-logo">
-                            <img src="../assets/images/logo/white-logo.svg" class="img-fluid blur-up lazyload"
-                                alt="" />
+                            <img src="{{ url(env('ADMIN_URL') . '/' . $generalInfo->logo) }}" class="img-fluid blur-up lazyload" alt="" />
                         </a>
                         <p class="information-text information-text-2">
-                            it is a long established fact that a reader will be distracted
-                            by the readable content.
+                            {{$generalInfo->short_description}}
                         </p>
                         <ul class="social-icon">
+                            @if ($generalInfo && $generalInfo->facebook)
                             <li class="light-bg">
-                                <a href="https://www.facebook.com/" class="footer-link-color">
+                                <a href="{{$generalInfo->facebook}}" class="footer-link-color">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
+                            @endif
+
+                            @if ($generalInfo && $generalInfo->twitter)
                             <li class="light-bg">
-                                <a href="https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin"
-                                    class="footer-link-color">
-                                    <i class="fab fa-google"></i>
-                                </a>
-                            </li>
-                            <li class="light-bg">
-                                <a href="https://twitter.com/i/flow/login" class="footer-link-color">
+                                <a href="{{$generalInfo->twitter}}" class="footer-link-color">
                                     <i class="fab fa-twitter"></i>
                                 </a>
                             </li>
+                            @endif
+
+                            @if ($generalInfo && $generalInfo->instagram)
                             <li class="light-bg">
-                                <a href="https://www.instagram.com/" class="footer-link-color">
+                                <a href="{{$generalInfo->instagram}}" class="footer-link-color">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
+                            @endif
+
+                            @if ($generalInfo && $generalInfo->pinterest)
                             <li class="light-bg">
-                                <a href="https://in.pinterest.com/" class="footer-link-color">
+                                <a href="{{$generalInfo->pinterest}}" class="footer-link-color">
                                     <i class="fab fa-pinterest-p"></i>
                                 </a>
                             </li>
+                            @endif
+
                         </ul>
                     </div>
 
@@ -518,16 +467,16 @@
                                 <a href="{{ url('/about') }}" class="light-text">About Us</a>
                             </li>
                             <li>
-                                <a href="{{url('/contact')}}" class="light-text">Contact Us</a>
+                                <a href="{{url('terms/of/services')}}" class="light-text">Terms & Coditions</a>
                             </li>
                             <li>
-                                <a href="term_condition.html" class="light-text">Terms & Coditions</a>
+                                <a href="{{url('privacy/policy')}}" class="light-text">Privacy Policy</a>
                             </li>
                             <li>
-                                <a href="careers.html" class="light-text">Policy</a>
+                                <a href="{{url('return/policy')}}" class="light-text">Return Policy</a>
                             </li>
                             <li>
-                                <a href="blog-list.html" class="light-text">Latest Blog</a>
+                                <a href="{{url('shipping/policy')}}" class="light-text">Shipping Policy</a>
                             </li>
                         </ul>
                     </div>
@@ -538,19 +487,19 @@
                         </div>
                         <ul class="footer-list footer-list-light footer-contact">
                             <li>
-                                <a href="order-success.html" class="light-text">Your Order</a>
+                                <a href="{{url('/home')}}" class="light-text">User Dashboard</a>
                             </li>
                             <li>
-                                <a href="{{ url('/login') }}" class="light-text">Your Account</a>
+                                <a href="{{url('/my/orders')}}" class="light-text">Recent Orders</a>
                             </li>
                             <li>
-                                <a href="order-tracking.html" class="light-text">Track Orders</a>
+                                <a href="{{url('/my/wishlists')}}" class="light-text">My Wishlist</a>
                             </li>
                             <li>
-                                <a href="wishlist.html" class="light-text">Your Wishlist</a>
+                                <a href="{{url('/my/payments')}}" class="light-text">Order Payments</a>
                             </li>
                             <li>
-                                <a href="faq.html" class="light-text">FAQs</a>
+                                <a href="{{url('/promo/coupons')}}" class="light-text">Promo/Coupon</a>
                             </li>
                         </ul>
                     </div>
@@ -560,21 +509,20 @@
                             <h4 class="text-white">Categories</h4>
                         </div>
                         <ul class="footer-list footer-list-light footer-contact">
+                            @php
+                                $footerCategories = DB::table('categories')
+                                ->where('status', 1)
+                                ->inRandomOrder()
+                                ->skip(0)
+                                ->limit(5)
+                                ->get();
+                            @endphp
+
+                            @foreach($footerCategories as $footerCategory)
                             <li>
-                                <a href="vegetables-demo.html" class="light-text">Fresh Vegetables</a>
+                                <a href="{{url('shop')}}?category={{$footerCategory->slug}}" class="light-text">{{$footerCategory->name}}</a>
                             </li>
-                            <li>
-                                <a href="spice-demo.html" class="light-text">Hot Spice</a>
-                            </li>
-                            <li>
-                                <a href="bags-demo.html" class="light-text">Brand New Bags</a>
-                            </li>
-                            <li>
-                                <a href="bakery-demo.html" class="light-text">New Bakery</a>
-                            </li>
-                            <li>
-                                <a href="grocery-demo.html" class="light-text">New Grocery</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
 
@@ -587,7 +535,7 @@
                                 <a href="javascript:void(0)" class="light-text">
                                     <div class="inform-box flex-start-box">
                                         <i data-feather="map-pin"></i>
-                                        <p>Fastkart Demo Store, Demo store india 345 - 659</p>
+                                        <p>{{$generalInfo->address}}</p>
                                     </div>
                                 </a>
                             </li>
@@ -596,7 +544,7 @@
                                 <a href="javascript:void(0)" class="light-text">
                                     <div class="inform-box">
                                         <i data-feather="phone"></i>
-                                        <p>Call us: 123-456-7890</p>
+                                        <p>Call us: {{$generalInfo->contact}}</p>
                                     </div>
                                 </a>
                             </li>
@@ -605,7 +553,7 @@
                                 <a href="javascript:void(0)" class="light-text">
                                     <div class="inform-box">
                                         <i data-feather="mail"></i>
-                                        <p>Email Us: Support@Fastkart.com</p>
+                                        <p>Email Us: {{$generalInfo->email}}</p>
                                     </div>
                                 </a>
                             </li>
@@ -614,7 +562,7 @@
                                 <a href="javascript:void(0)" class="light-text">
                                     <div class="inform-box">
                                         <i data-feather="printer"></i>
-                                        <p>Fax: 123456</p>
+                                        <p>Trade License: {{$generalInfo->trade_license_no}}</p>
                                     </div>
                                 </a>
                             </li>
@@ -626,29 +574,13 @@
             <div class="sub-footer sub-footer-lite section-b-space section-t-space">
                 <div class="left-footer">
                     <p class="light-text">
-                        2022 Copyright By Themeforest Powered By Pixelstrap
+                        {{$generalInfo->footer_copyright_text}} | Developed By <a href="https://getup.com.bd/" target="_blank">Getup Ltd.</a>
                     </p>
                 </div>
 
                 <ul class="payment-box">
                     <li>
-                        <img src="../assets/images/icon/paymant/visa.png" class="blur-up lazyload" alt="" />
-                    </li>
-                    <li>
-                        <img src="../assets/images/icon/paymant/discover.png" alt=""
-                            class="blur-up lazyload" />
-                    </li>
-                    <li>
-                        <img src="../assets/images/icon/paymant/american.png" alt=""
-                            class="blur-up lazyload" />
-                    </li>
-                    <li>
-                        <img src="../assets/images/icon/paymant/master-card.png" alt=""
-                            class="blur-up lazyload" />
-                    </li>
-                    <li>
-                        <img src="../assets/images/icon/paymant/giro-pay.png" alt=""
-                            class="blur-up lazyload" />
+                        <img class="blur-up lazyload w-100" src="{{url(env('ADMIN_URL')."/".$generalInfo->payment_banner)}}" alt=""/>
                     </li>
                 </ul>
             </div>
@@ -661,7 +593,7 @@
     <!-- Quick View Modal Box End -->
 
     <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
+    {{-- <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
             <div class="modal-content">
@@ -762,7 +694,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Location Modal End -->
 
     <!-- Tap to top start -->

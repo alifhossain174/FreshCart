@@ -1,6 +1,4 @@
-1. Wishlist
-2. User Dashboard
+1. User Dashboard
+2. FAQ
 3. Order Tracking
-4. FAQ
-5. Header & Footer
-6. Live Search
+4. Live Search
